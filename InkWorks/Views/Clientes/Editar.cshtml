@@ -1,0 +1,52 @@
+﻿@model Cliente
+
+@{
+    ViewData["title"] = "Editar Cliente";
+}
+
+
+<div class="container d-flex justify-content-center align-items-center py-4">
+    <div class="bg-dark text-white p-4 rounded">
+        <h1 class="display-5 mb-4">Editar Ficha de Cliente</h1>
+
+        <form method="post" asp-controller="Clientes" asp-action="Editar" class="mt-2">
+            
+            <input type="text" class="form-control" asp-for="ClienteId" value="@Model.ClienteId" id="Nome" hidden>
+                
+            
+            <div clas
+                <label for="Nome" class="form-label">Nome:</label>
+                <input type="text" class="form-control" asp-for="Nome" id="Nome" required>
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label for="Morada" class="form-label">Morada:</label>
+                <input type="text" class="form-control" asp-for="Morada" id="Morada" required>
+                <span asp-validation-for="Morada" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label for="AnoNascimento" class="form-label">Ano de Nascimento:</label>
+                <input type="text" class="form-control" asp-for="AnoNascimento" id="AnoNascimento" required>
+                <span asp-validation-for="AnoNascimento" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label for="Telefone" class="form-label">Contacto:</label>
+                <input type="text" class="form-control" asp-for="Telefone" id="Telefone" required>
+                <span asp-validation-for="Telefone" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label for="Email" class="form-label">Email:</label>
+                <input type="text" class="form-control" asp-for="Email" id="Email">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label for="Observacoes" class="form-label">Observaçõess:</label>
+                <input type="text" class="form-control" asp-for="Observacoes" id="Observacoes" required>
+                <span asp-validation-for="Observacoes" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+        </form>
+
+    </div>
+</div>
