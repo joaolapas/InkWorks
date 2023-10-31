@@ -26,10 +26,7 @@ namespace InkWorks.Controllers
         }
         public IActionResult Editar(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+           
             Cliente cliente = _repositorio.ListarPorId(id);
 
             if (cliente == null)
@@ -39,9 +36,17 @@ namespace InkWorks.Controllers
 
             return View(cliente);
         }
-        public IActionResult Apagar()
+        public IActionResult Eliminar(int id)
         {
-            return View();
+           
+            Cliente cliente = _repositorio.ListarPorId(id);
+
+            if (cliente == null)
+            {
+                return NotFound();
+            }
+
+            return View(cliente);
         }
 
         [HttpPost]
@@ -59,6 +64,20 @@ namespace InkWorks.Controllers
                 _repositorio.Editar(cliente);
             }
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Eliminar(Cliente cliente)
+        {
+            if (cliente == null)
+            {
+                return NotFound();
+            }
+            _repositorio.Eliminar(cliente);
+           
+            
+            return RedirectToAction("Index");
+            
         }
     }
 }

@@ -1,0 +1,30 @@
+﻿@model Cliente
+
+@{
+    ViewData["title"] = "Apagar Cliente";
+}
+
+
+<div class="container d-flex justify-content-center align-items-center py-4">
+    <div class="bg-dark text-white p-4 rounded">
+        <h1 class="display-5 mb-4">Apagar Ficha de Cliente</h1>
+
+       <h3 class="text-danger">Tem a certeza que quer a ficha do cliente</h3>
+        <h3 class="text-danger">@Model.Nome?</h3>
+
+       <p>Todos os dados serão eliminados permanentemente</p>
+
+        <form method="post" asp-controller="Clientes" asp-action="Eliminar">
+            <input asp-for="Nome" hidden />
+            <input asp-for="Morada" hidden />
+            <input asp-for="AnoNascimento" hidden />
+            <input asp-for="Telefone" hidden />
+            <input asp-for="Email" hidden />
+            <input asp-for="ClienteId" hidden />
+            <button type="submit" class="btn btn-danger">Remover</button>
+            <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+        </form>
+       
+
+    </div>
+</div>

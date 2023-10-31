@@ -36,6 +36,12 @@ namespace InkWorks.Repositorio
 
             return cliente;
         }
+        public Cliente Eliminar(Cliente cliente)
+        {
+            _appDbContext.Clientes.Remove(cliente);
+            _appDbContext.SaveChanges();
+            return cliente;
+        }
        
     }
 }
