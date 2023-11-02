@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InkWorks.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231030140932_DBandModelsCreation")]
-    partial class DBandModelsCreation
+    [Migration("20231102141031_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,7 +33,7 @@ namespace InkWorks.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClienteId"));
 
-                    b.Property<int>("AnoNascimento")
+                    b.Property<int?>("AnoNascimento")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -111,7 +111,7 @@ namespace InkWorks.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MensagemId"));
 
-                    b.Property<int>("AnoNascimento")
+                    b.Property<int?>("AnoNascimento")
                         .HasColumnType("int");
 
                     b.Property<int>("ClienteId")
@@ -144,6 +144,35 @@ namespace InkWorks.Migrations
                     b.ToTable("Mensagens");
                 });
 
+            modelBuilder.Entity("InkWorks.Models.Sessao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DataFinal")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataInicio")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TrabalhoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("TrabalhoId");
+
+                    b.ToTable("Sessoes");
+                });
+
             modelBuilder.Entity("InkWorks.Models.Trabalho", b =>
                 {
                     b.Property<int>("TrabalhoId")
@@ -152,29 +181,29 @@ namespace InkWorks.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TrabalhoId"));
 
-                    b.Property<int>("ClienteId")
+                    b.Property<int?>("ClienteId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Concluido")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("DataFinal")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DataInicio")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Estilo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ObservacoesTrabalho")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TotalHoras")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Valor")
+                        .HasColumnType("int");
 
                     b.HasKey("TrabalhoId");
 
@@ -191,10 +220,10 @@ namespace InkWorks.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("DataAlteração")
+                    b.Property<DateTime>("DataAlteracao")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataCriação")
+                    b.Property<DateTime>("DataCriacao")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -239,13 +268,30 @@ namespace InkWorks.Migrations
                     b.Navigation("Cliente");
                 });
 
+            modelBuilder.Entity("InkWorks.Models.Sessao", b =>
+                {
+                    b.HasOne("InkWorks.Models.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("InkWorks.Models.Trabalho", "Trabalho")
+                        .WithMany("Sessoes")
+                        .HasForeignKey("TrabalhoId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("Trabalho");
+                });
+
             modelBuilder.Entity("InkWorks.Models.Trabalho", b =>
                 {
                     b.HasOne("InkWorks.Models.Cliente", "Cliente")
                         .WithMany("Trabalhos")
-                        .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClienteId");
 
                     b.Navigation("Cliente");
                 });
@@ -260,6 +306,8 @@ namespace InkWorks.Migrations
             modelBuilder.Entity("InkWorks.Models.Trabalho", b =>
                 {
                     b.Navigation("Imagens");
+
+                    b.Navigation("Sessoes");
                 });
 #pragma warning restore 612, 618
         }

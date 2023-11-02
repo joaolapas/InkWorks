@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using InkWorks.Data;
 using InkWorks.Repositorio;
+using AspNetCoreHero.ToastNotification;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,16 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 //Interfaces
 builder.Services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
+builder.Services.AddScoped<ITrabalhoRepositorio, TrabalhoRepositorio>();
+
+//Toast Notifications
+builder.Services.AddNotyf(config =>
+{
+    config.DurationInSeconds = 5;
+    config.IsDismissable = true;
+    config.Position = NotyfPosition.TopCenter;
+
+});
 
 
 

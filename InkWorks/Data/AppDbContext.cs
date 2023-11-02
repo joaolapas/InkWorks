@@ -14,12 +14,11 @@ namespace InkWorks.Data
         public DbSet<Mensagem> Mensagens { get; set; }
         public DbSet<Imagem> Imagens { get; set; }
         public DbSet<Utilizador> Utilizadores { get; set; }
+        public DbSet<Sessao> Sessoes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-           
 
             modelBuilder.Entity<Trabalho>()
                 .HasOne(t => t.Cliente)
@@ -35,6 +34,12 @@ namespace InkWorks.Data
                 .HasOne(i => i.Trabalho)
                 .WithMany(t => t.Imagens)
                 .HasForeignKey(i => i.TrabalhoId);
+
+            modelBuilder.Entity<Sessao>()
+                .HasOne(s => s.Trabalho)
+                .WithMany(t => t.Sessoes)
+                .HasForeignKey(s => s.TrabalhoId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
