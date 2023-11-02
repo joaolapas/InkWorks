@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InkWorks.Controllers
 {
-    public class UtilizadoresController : Controller
+    public class ClientesController : Controller
     {
-        private readonly IUtilizadorRepositorio _repositorio;
+        private readonly IClienteRepositorio _repositorio;
         private readonly INotyfService _notification;
-        public UtilizadoresController(IUtilizadorRepositorio repositorio, INotyfService notification)
+        public ClientesController(IClienteRepositorio repositorio, INotyfService notification)
         {
             _repositorio = repositorio;
             _notification = notification;
@@ -19,9 +19,9 @@ namespace InkWorks.Controllers
         public IActionResult Index()
         {
             //Pedir dados
-            List<Utilizador> utilizadores = _repositorio.ListarTodos();
+            List<Cliente> clientes = _repositorio.ListarTodos();
             // Passa os dados para a view
-            return View("Index", utilizadores);
+            return View("Index", clientes);
         }
         public IActionResult Adicionar()
         {
@@ -30,57 +30,57 @@ namespace InkWorks.Controllers
         public IActionResult Editar(int id)
         {
            
-            Utilizador utilizador = _repositorio.ListarPorId(id);
+            Cliente cliente = _repositorio.ListarPorId(id);
 
-            if (utilizador == null)
+            if (cliente == null)
             {
                 
                 return NotFound();
             }
             
-            return View(utilizador);
+            return View(cliente);
         }
         public IActionResult Eliminar(int id)
         {
            
-            Utilizador utilizador = _repositorio.ListarPorId(id);
+            Cliente cliente = _repositorio.ListarPorId(id);
 
-            if (utilizador == null)
+            if (cliente == null)
             {
                 return NotFound();
             }
 
-            return View(utilizador);
+            return View(cliente);
         }
 
         [HttpPost]
-        public IActionResult Adicionar(Utilizador utilizador)
+        public IActionResult Adicionar(Cliente cliente)
         {
 
-                _repositorio.Adicionar(utilizador);
-                _notification.Success("Utilizador adicionado");
+                _repositorio.Adicionar(cliente);
+                _notification.Success("Cliente adicionado");
                 return RedirectToAction("Index");
         }
         [HttpPost]
-        public IActionResult Editar(Utilizador utilizador)
+        public IActionResult Editar(Cliente cliente)
         {
             if (ModelState.IsValid)
             {
-                _repositorio.Editar(utilizador);
-                _notification.Success("Utilizador Editado!");
+                _repositorio.Editar(cliente);
+                _notification.Success("Cliente Editado!");
             }
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public IActionResult Eliminar(Utilizador utilizador)
+        public IActionResult Eliminar(Cliente cliente)
         {
-            if (utilizador == null)
+            if (cliente == null)
             {
                 return NotFound();
             }
-            _repositorio.Eliminar(utilizador);
-            _notification.Success("Utilizador eliminado");
+            _repositorio.Eliminar(cliente);
+            _notification.Success("Cliente eliminado");
 
 
             return RedirectToAction("Index");

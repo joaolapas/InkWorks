@@ -17,6 +17,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 //Interfaces
 builder.Services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
 builder.Services.AddScoped<ITrabalhoRepositorio, TrabalhoRepositorio>();
+builder.Services.AddScoped<IUtilizadorRepositorio, UtilizadorRepositorio>();
 
 //Toast Notifications
 builder.Services.AddNotyf(config =>
