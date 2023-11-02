@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Trabalho>
+
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Trabalhos</h1>
+        <p>não esquecer - esta rota será protegida</p>
+        <div class="d-flex w-50">
+            <div class="input-group ">
+            </div>
+            
+        </div>
+    </div>
+
+    <table id="Trabalho" class="table table-dark table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Título</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Total de Horas</th>
+                <th scope="col">Nº de Sessões</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Concluido</th>
+                <th scope="col">Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (Model != null)
+            {
+                foreach (var trabalho in Model)
+                {
+                    <tr>
+                        <th scope="row">@trabalho.TrabalhoId</th>
+                        <td>@trabalho.Titulo</td>
+                        <td>@trabalho.Cliente?.Nome</td>
+                        <td>@trabalho.TotalHoras</td>
+                        <td>@trabalho.Sessoes?.Count()</td>
+                        <td>€@string.Format("{0:F2}", trabalho.Valor)</td>
+                        <td>@(trabalho.Concluido ? "Sim" : "Não")</td>
+                        <td class="d-flex justify-content-end gap-2">
+                            <a class="btn btn-secondary" title="Detalhes" asp-controller="Trabalhos" asp-action="Detalhes" asp-route-id="@trabalho.TrabalhoId"><i class="bi bi-three-dots"></i></a>
+                            <a class="btn btn-success" title="Adicionar automóvel a este cliente" asp-controller="" asp-action="" asp-route-ClienteId=""><i class="bi bi-file-earmark-plus"></i></a>
+                            <a class="btn btn-warning" title="Editar dados de trabalho" asp-controller="Trabalhos" asp-action="Editar" asp-route-id="@trabalho.TrabalhoId"><i class="bi bi-pencil"></i></a>
+                            <a class="btn btn-danger" title="Remover trabalho" asp-controller="Trabalhos" asp-action="Eliminar" asp-route-id="@trabalho.TrabalhoId"><i class="bi bi-trash3"></i></a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div class="m-lg-5"></div>
+</div>

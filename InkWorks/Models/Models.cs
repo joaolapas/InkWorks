@@ -1,7 +1,9 @@
-﻿using InkWorks.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using InkWorks.Enums;
+using Microsoft.EntityFrameworkCore;
+
 namespace InkWorks.Models
 {
     public class Cliente
@@ -14,48 +16,48 @@ namespace InkWorks.Models
         public string Morada { get; set; }
 
         [Display(Name = "Ano de Nascimento")]
-        public int AnoNascimento { get; set; }
+        public int? AnoNascimento { get; set; }
 
         public string Telefone { get; set; }
 
         [EmailAddress]
         public string Email { get; set; }
 
-        public string? Observacoes { get; set; }
+        public string Observacoes { get; set; }
 
-        // Relação um-para-muitos com Trabalhos
         public List<Trabalho>? Trabalhos { get; set; }
 
-        // Relação um-para-muitos com Mensagens
         public List<Mensagem>? Mensagens { get; set; }
     }
 
     public class Trabalho
     {
+        public Trabalho()
+        {
+            Sessoes = new List<Sessao>();
+        }
+
         public int TrabalhoId { get; set; }
 
         [Required]
-        public string Nome { get; set; }
+        public string Titulo { get; set; }
 
-        [Display(Name = "Data de Início")]
-        public DateTime DataInicio { get; set; }
+        public List<Sessao>? Sessoes { get; set; }
 
-        [Display(Name = "Data de Conclusão")]
-        public DateTime DataFinal { get; set; }
+        public int TotalHoras { get; set; }
 
         public string Estilo { get; set; }
 
         [Display(Name = "Observações sobre o Trabalho")]
         public string ObservacoesTrabalho { get; set; }
 
+        public int Valor { get; set; }
         public bool Concluido { get; set; }
 
-        // Relação muitos-para-um com Cliente
-        public int ClienteId { get; set; }
-        public Cliente Cliente { get; set; }
+        public int? ClienteId { get; set; }
+        public Cliente? Cliente { get; set; }
 
-        // Relação um-para-muitos com Imagens
-        public List<Imagem> Imagens { get; set; }
+        public List<Imagem>? Imagens { get; set; }
     }
 
     public class Mensagem
@@ -70,14 +72,13 @@ namespace InkWorks.Models
         public string Morada { get; set; }
 
         [Display(Name = "Ano de Nascimento")]
-        public int AnoNascimento { get; set; }
+        public int? AnoNascimento { get; set; }
 
         public string Telefone { get; set; }
 
         [EmailAddress]
         public string Email { get; set; }
 
-        // Relação muitos-para-um com Cliente
         public int ClienteId { get; set; }
         public Cliente Cliente { get; set; }
     }
@@ -100,23 +101,46 @@ namespace InkWorks.Models
 
         public string Observacoes { get; set; }
 
-        // Relação muitos-para-um com Trabalho
         public int TrabalhoId { get; set; }
         public Trabalho Trabalho { get; set; }
     }
+
     public class Utilizador
     {
         public int Id { get; set; }
 
+        [Required]
         public string Nome { get; set; }
 
+        [Required]
         public string Email { get; set; }
 
-        public  PerfilEnum Perfil { get; set; }
+        public PerfilEnum Perfil { get; set; }
+
+        [Required]
         public string Password { get; set; }
-        public DateTime DataCriação { get; set; }
-        public DateTime DataAlteração { get; set; }
 
+        public DateTime DataCriacao { get; set; }
+
+        public DateTime DataAlteracao { get; set; }
     }
-}
 
+
+    public class Sessao
+    {
+        public int Id { get; set; }
+
+        [Display(Name = "Data de Início")]
+        public DateTime DataInicio { get; set; }
+
+        [Display(Name = "Data de Conclusão")]
+        public DateTime DataFinal { get; set; }
+
+        public int TrabalhoId { get; set; }
+        public Trabalho Trabalho { get; set; }
+
+        public Cliente Cliente { get; set; }
+    }
+
+
+}

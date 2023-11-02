@@ -1,4 +1,5 @@
-﻿using InkWorks.Data;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using InkWorks.Data;
 using InkWorks.Models;
 using InkWorks.Repositorio;
 using Microsoft.AspNetCore.Mvc;
@@ -9,9 +10,11 @@ namespace InkWorks.Controllers
     public class ClientesController : Controller
     {
         private readonly IClienteRepositorio _repositorio;
-        public ClientesController(IClienteRepositorio repositorio)
+        private readonly INotyfService _notification;
+        public ClientesController(IClienteRepositorio repositorio, INotyfService notification)
         {
             _repositorio = repositorio;
+            _notification = notification;
         }
         public IActionResult Index()
         {
@@ -31,9 +34,10 @@ namespace InkWorks.Controllers
 
             if (cliente == null)
             {
+                
                 return NotFound();
             }
-
+            
             return View(cliente);
         }
         public IActionResult Eliminar(int id)
@@ -54,6 +58,7 @@ namespace InkWorks.Controllers
         {
 
                 _repositorio.Adicionar(cliente);
+                _notification.Success("Cliente adicionado");
                 return RedirectToAction("Index");
         }
         [HttpPost]
@@ -62,6 +67,7 @@ namespace InkWorks.Controllers
             if (ModelState.IsValid)
             {
                 _repositorio.Editar(cliente);
+                _notification.Success("Cliente Editado!");
             }
             return RedirectToAction("Index");
         }
@@ -74,8 +80,9 @@ namespace InkWorks.Controllers
                 return NotFound();
             }
             _repositorio.Eliminar(cliente);
-           
-            
+            _notification.Success("Cliente eliminado");
+
+
             return RedirectToAction("Index");
             
         }

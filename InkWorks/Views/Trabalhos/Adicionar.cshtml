@@ -1,0 +1,60 @@
+﻿@model Trabalho
+
+@{
+    ViewData["title"] = "Novo trabalho";
+}
+
+
+<div class="container d-flex justify-content-center align-items-center py-4">
+    <div class="bg-dark text-white p-4 rounded">
+        <h1 class="display-5 mb-4">Adicionar novo Trabalho</h1>
+
+        <form method="post" asp-controller="Trabalhos" asp-action="Adicionar" class="mt-2">
+            <div class="mb-3">
+                <label for="Titulo" class="form-label">Título:</label>
+                <input type="text" class="form-control" asp-for="Titulo" id="Titulo" required>
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+
+            
+            <input type="hidden" asp-for="ClienteId" id="ClienteId" value="@Model.ClienteId" />
+
+            <div class="mb-3">
+                <label for="TotalHoras" class="form-label">Total de Horas:</label>
+                <input type="text" class="form-control" asp-for="TotalHoras" id="TotalHoras" required>
+                <span asp-validation-for="TotalHoras" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label for="Valor" class="form-label">Valor:</label>
+                <input type="text" class="form-control" asp-for="Valor" id="Valor" required>
+                <span asp-validation-for="Valor" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label for="Estilo" class="form-label">Estilo:</label>
+                <input type="text" class="form-control" asp-for="Estilo" id="Estilo" required>
+                <span asp-validation-for="Estilo" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label for="ObservacoesTrabalho" class="form-label">Observações:</label>
+                <input type="text" class="form-control" asp-for="ObservacoesTrabalho" id="Observacoes" required>
+                <span asp-validation-for="ObservacoesTrabalho" class="text-danger"></span>
+            </div>
+            
+            <div class="mb-3">
+                <label for="Concluido" class="form-label">Concluído:</label>
+                <select class="form-control" asp-for="Concluido">
+                    <option value="true">Sim</option>
+                    <option value="false">Não</option>
+                </select>
+            </div>
+            
+
+
+
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+        </form>
+
+    </div>
+</div>
