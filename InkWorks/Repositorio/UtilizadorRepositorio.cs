@@ -42,6 +42,10 @@ namespace InkWorks.Repositorio
             _appDbContext.SaveChanges();
             return utilizador;
         }
-       
+
+        public Utilizador ListartPorLogin(string login)
+        {
+            return _appDbContext.Utilizadores.FirstOrDefault(x => x.Email.ToUpper() == login.ToUpper());
+        }
     }
 }

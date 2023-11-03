@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using InkWorks.Data;
 using InkWorks.Repositorio;
 using AspNetCoreHero.ToastNotification;
+using Microsoft.AspNetCore.Http;
+using InkWorks.Helper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,16 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
 builder.Services.AddScoped<ITrabalhoRepositorio, TrabalhoRepositorio>();
 builder.Services.AddScoped<IUtilizadorRepositorio, UtilizadorRepositorio>();
+builder.Services.AddScoped<ISessao, Sessao>();
+
+//sessão
+
+builder.Services.AddSession(o =>
+{
+    o.Cookie.HttpOnly = true;
+    o.Cookie.IsEssential = true;
+
+});
 
 //Toast Notifications
 builder.Services.AddNotyf(config =>
@@ -27,6 +39,9 @@ builder.Services.AddNotyf(config =>
     config.Position = NotyfPosition.TopCenter;
 
 });
+
+//IHttpContext
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
 
@@ -48,9 +63,10 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=NotLogged}/{action=Index}/{id?}");
+    pattern: "{controller=Publico}/{action=Index}/{id?}");
 
 app.Run();

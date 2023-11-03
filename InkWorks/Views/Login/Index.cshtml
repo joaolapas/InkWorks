@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "_Login";
+}
+@model LoginModel;
+
+<div class="container d-flex justify-content-center align-items-center py-4">
+    <div class="bg-dark text-white p-4 rounded w-50">
+        <h1 class="display-5 mb-4">Login</h1>
+
+        <form method="post" asp-controller="Login" asp-action="Entrar" class="mt-2">
+            
+            <div class="mb-3">
+                <label for="Email" class="form-label">Email:</label>
+                <input type="text" class="form-control" asp-for="Email"  id="Email" required>
+                <span class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label for="Password" class="form-label">Password:</label>
+                <input type="password" class="form-control" asp-for="Password" id="Password">
+                <span  class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-outline-success">Login</button>
+            <a class="btn btn-outline-light" asp-controller="Publico" asp-action="Index">Voltar</a>
+        </form>
+
+    </div>
+</div>

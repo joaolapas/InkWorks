@@ -2,7 +2,7 @@
 
 namespace InkWorks.Controllers
 {
-    public class NotLoggedController : Controller
+    public class PublicoController : Controller
     {
         public IActionResult Index()
         {

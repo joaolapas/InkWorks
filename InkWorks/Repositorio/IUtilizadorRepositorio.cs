@@ -6,6 +6,7 @@ namespace InkWorks.Repositorio
     {
         List<Utilizador> ListarTodos();
         Utilizador ListarPorId(int id);
+        Utilizador ListartPorLogin(string login);
 
         Utilizador Adicionar(Utilizador utilizador);
         Utilizador Editar(Utilizador utilizador);

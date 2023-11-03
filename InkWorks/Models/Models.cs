@@ -123,6 +123,10 @@ namespace InkWorks.Models
         public DateTime DataCriacao { get; set; }
 
         public DateTime DataAlteracao { get; set; }
+        public bool PasswordValida(string pass)
+        {
+            return Password == pass;
+        }
     }
 
 
