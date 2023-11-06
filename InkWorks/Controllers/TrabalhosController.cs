@@ -1,5 +1,6 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using InkWorks.Data;
+using InkWorks.Filters;
 using InkWorks.Models;
 using InkWorks.Repositorio;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InkWorks.Controllers
 {
+    [UtilizadorLogado]
     public class TrabalhosController : Controller
     {
         private readonly ITrabalhoRepositorio _repositorio;

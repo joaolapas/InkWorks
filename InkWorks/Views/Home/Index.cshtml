@@ -1,9 +1,13 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Área Restrita";
 }
 
 
+
 <div class="text-center">
-    <h1 class="display-4">Welcome, @Model.</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome, </br><span class="text-success">@ViewBag.Nome</span></h1>
+    </br>
+    <h4 class="">@DateTime.Now.ToShortDateString()</h4>
+    <p>Hoje tem <span class="text-success">X</span>  marcações</p>
+    <a class="btn btn-outline-success" asp-asp-controller="" asp-action="">Ver marcações</a>
 </div>
