@@ -5,7 +5,7 @@ namespace InkWorks.Repositorio
     public interface ITrabalhoRepositorio
     {
         List<Trabalho> ListarTodos();
-        List<Trabalho> ListarTodosPorId();
+        List<Trabalho> ListarTodosPorId(int id);
         Trabalho ListarPorId(int id);
 
         Trabalho Adicionar(Trabalho trabalho);

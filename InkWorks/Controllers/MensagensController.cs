@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using InkWorks.Filters;
 using InkWorks.Models;
 using InkWorks.Repositorio;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace InkWorks.Controllers
 {
+    [UtilizadorLogado]
     public class MensagensController : Controller
     {
         private readonly IMensagemRepositorio _repositorio;

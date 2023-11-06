@@ -40,5 +40,66 @@
         <a class="btn btn-outline-light" asp-controller="Mensagens" asp-action="Index">Voltar</a>
     </div>
     <h3>Hisórico de trabalhos</h3>
+    <table class="table table-dark">
+
+        <tr>
+            <th>Titulo</th>
+            <th>Nº Sessões</th>
+            <th>Estilo</th>
+            <th>Observações</th>
+            <th>Valor</th>
+            <th>Concluído?</th>
+            <th>Opções</th>
+
+        </tr>
+        @if (Model.Trabalhos != null)
+        {
+            foreach (var trabalho in Model.Trabalhos)
+            {
+                <tr>
+                    <td>@trabalho.Titulo</td>
+                    <td>@trabalho.Sessoes?.Count()</td>
+                    <td>@trabalho.Estilo</td>
+                    <td>@trabalho.ObservacoesTrabalho</td>
+                    <td>€@string.Format("{0:F2}", trabalho.Valor)</td>
+                    <td>@(trabalho.Concluido ? "Sim" : "Não")</td>
+                    <td class="gap-2">
+                        <a class="btn btn-secondary" title="Detalhes" asp-controller="Trabalhos" asp-action="Detalhes" asp-route-id="@trabalho.TrabalhoId"><i class="bi bi-three-dots"></i></a>
+                        <a class="btn btn-warning" title="Editar dados deste trabalho" asp-controller="Trabalhos" asp-action="Editar" asp-route-id="@trabalho.TrabalhoId"><i class="bi bi-pencil"></i></a>
+                        <a class="btn btn-danger" title="Remover trabalho" asp-controller="Trabalhos" asp-action="Eliminar" asp-route-id="@trabalho.TrabalhoId"><i class="bi bi-trash3"></i></a>
+                    </td>
+
+                </tr>
+            }
+        }
+    </table>
+    <h3>Hisórico de Mensagens</h3>
+    <table class="table table-dark">
+
+        <tr>
+            <th>Recebida</th>
+            <th>Mensagem</th>
+            
+            <th>Opções</th>
+
+        </tr>
+        @if (Model.Mensagens != null)
+        {
+            foreach (var msg in Model.Mensagens)
+            {
+                <tr>
+                    <td>@msg.DataEnvio</td>
+                    <td>
+                        <a asp-action="Detalhes" asp-route-id="@msg.MensagemId">@Html.Raw(msg.MensagemTexto.Length > 75 ? msg.MensagemTexto.Substring(0, 35) + "..." : msg.MensagemTexto)</a>
+                    </td>
+                    <td class="gap-2">
+                        <a class="btn btn-secondary" title="Detalhes" asp-controller="Mensagens" asp-action="Detalhes" asp-route-id="@msg.MensagemId"><i class="bi bi-three-dots"></i></a>
+                        <a class="btn btn-danger" title="Remover trabalho" asp-controller="Mensagens" asp-action="Eliminar" asp-route-id="@msg.MensagemId"><i class="bi bi-trash3"></i></a>
+                    </td>
+
+                </tr>
+            }
+        }
+    </table>
 
 </div>

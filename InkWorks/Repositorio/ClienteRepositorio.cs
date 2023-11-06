@@ -19,6 +19,16 @@ namespace InkWorks.Repositorio
         {
             return _appDbContext.Clientes.FirstOrDefault(x => x.ClienteId == id);
         }
+        public Cliente ListarDetalhesPorId(int id)
+        {
+            var cliente = _appDbContext.Clientes
+                .Include(c => c.Trabalhos)
+                .Include(c => c.Mensagens)
+                .FirstOrDefault(c => c.ClienteId == id);
+
+            return cliente;
+        }
+
         public Cliente Adicionar(Cliente cliente)
         {
             

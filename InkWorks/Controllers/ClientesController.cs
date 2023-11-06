@@ -57,7 +57,8 @@ namespace InkWorks.Controllers
         }
         public IActionResult Detalhes(int id)
         {
-            var cliente = _repositorio.ListarPorId(id);
+
+            var cliente = _repositorio.ListarDetalhesPorId(id);
             return View(cliente);
         }
 

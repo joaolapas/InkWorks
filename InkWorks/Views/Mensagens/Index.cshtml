@@ -39,9 +39,7 @@
                         
                         
                         <td class="d-flex justify-content-end gap-2">
-                            <a class="btn btn-secondary" title="Ver Mensagem completa" asp-controller="Mensagens" asp-action="Detalhes" asp-route-id="@msg.MensagemId"><i class="bi bi-three-dots"></i></a>
-                            <a class="btn btn-outline-success" title="Adicionar Trabalho a este cliente" asp-controller="Trabalhos" asp-action="Adicionar" asp-route-MensagemId=""><i class="bi bi-file-earmark-plus"></i></a>
-                            <a class="btn btn-outline-warning" title="Editar dados de cliente" asp-controller="Clientes" asp-action="Editar" asp-route-id=""><i class="bi bi-pencil"></i></a>
+                            <a class="btn btn-secondary" title="Ver Detalhes de Mensagem" asp-controller="Mensagens" asp-action="Detalhes" asp-route-id="@msg.MensagemId"><i class="bi bi-three-dots"></i></a>
                             <a class="btn btn-outline-danger" title="Remover cliente" asp-controller="Clientes" asp-action="Eliminar" asp-route-id="@msg.MensagemId"><i class="bi bi-trash3"></i></a>
                         </td>
                     </tr>

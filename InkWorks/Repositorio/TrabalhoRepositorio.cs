@@ -14,10 +14,12 @@ namespace InkWorks.Repositorio
         public List<Trabalho> ListarTodos()
         {
             return _appDbContext.Trabalhos
-                .Include(t => t.Cliente)  
+                .Include(t => t.Cliente)
+                .ThenInclude(c => c.Mensagens) 
                 .ToList();
         }
-        public List<Trabalho> ListarTrabalhosDoCliente(int clienteId)
+
+        public List<Trabalho> ListarTodosPorId(int clienteId)
         {
             return _appDbContext.Trabalhos
                 .Where(t => t.ClienteId == clienteId)
