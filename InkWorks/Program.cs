@@ -20,6 +20,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
 builder.Services.AddScoped<ITrabalhoRepositorio, TrabalhoRepositorio>();
 builder.Services.AddScoped<IUtilizadorRepositorio, UtilizadorRepositorio>();
+builder.Services.AddScoped<IMensagemRepositorio, MensagemRepositorio>();
 builder.Services.AddScoped<ISessao, Sessao>();
 
 //sessão

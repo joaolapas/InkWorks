@@ -9,7 +9,7 @@
     <div class="bg-dark text-white p-4 rounded">
         <h1 class="display-5 mb-4">Adicionar novo Cliente</h1>
 
-        <form method="post" asp-controller="Clientes" asp-action="Adicionar" class="mt-2">
+        <form method="post" asp-controller="Clientes" asp-action="AdicionarPorMsg" class="mt-2">
             <div class="mb-3">
                 <label for="Nome" class="form-label">Nome:</label>
                 <input type="text" class="form-control" asp-for="Nome" id="Nome" required>
@@ -40,8 +40,13 @@
                 <input type="text" class="form-control" asp-for="Observacoes" id="Observacoes" required>
                 <span asp-validation-for="Observacoes" class="text-danger"></span>
             </div>
+            
+                
+                <input type="text" class="form-control" asp-for="MsgId" id="MsgId" hidden>
+            
+
             <button type="submit" class="btn btn-outline-success">Guardar</button>
-            <a class="btn btn-outline-light" asp-action="Index">Voltar</a>
+            <a class="btn btn-outline-light" asp-controller="Mensagens" asp-action="Index">Voltar</a>
         </form>
 
     </div>

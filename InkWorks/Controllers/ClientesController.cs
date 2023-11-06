@@ -12,11 +12,15 @@ namespace InkWorks.Controllers
     public class ClientesController : Controller
     {
         private readonly IClienteRepositorio _repositorio;
+        private readonly IMensagemRepositorio _mensagem;
+        private readonly ITrabalhoRepositorio _trabalho;
         private readonly INotyfService _notification;
-        public ClientesController(IClienteRepositorio repositorio, INotyfService notification)
+        public ClientesController(IClienteRepositorio repositorio, INotyfService notification, IMensagemRepositorio mensagem, ITrabalhoRepositorio trabalho)
         {
             _repositorio = repositorio;
             _notification = notification;
+            _mensagem = mensagem;
+            _trabalho = trabalho;
         }
         public IActionResult Index()
         {
@@ -29,6 +33,34 @@ namespace InkWorks.Controllers
         {
             return View();
         }
+        public IActionResult AdicionarPorMsg(int id)
+        {
+            Mensagem mensagem = _mensagem.ListarPorId(id);
+
+            if (mensagem == null)
+            {
+                return NotFound();
+            }
+
+            Cliente novoCliente = new Cliente
+            {
+                Nome = mensagem.Nome,
+                Email = mensagem.Email,
+                Morada = mensagem.Morada,
+                AnoNascimento = mensagem.AnoNascimento,
+                Telefone = mensagem.Telefone,
+                MsgId = mensagem.MensagemId
+            };
+
+
+            return View("AdicionarPorMsg", novoCliente);
+        }
+        public IActionResult Detalhes(int id)
+        {
+            var cliente = _repositorio.ListarPorId(id);
+            return View(cliente);
+        }
+
         public IActionResult Editar(int id)
         {
            
@@ -86,7 +118,44 @@ namespace InkWorks.Controllers
 
 
             return RedirectToAction("Index");
-            
+
         }
+        [HttpPost]
+        public IActionResult AdicionarPorMsg(Cliente cliente)
+        {
+            int? msgIdNullable = cliente.MsgId;
+            int msgId = msgIdNullable.HasValue ? msgIdNullable.Value : 0;
+            
+
+            var mensagem = _mensagem.ListarPorId(msgId);
+
+            if (mensagem != null)
+            {
+               
+                mensagem.Cliente = cliente;
+                mensagem.ClienteId = cliente.ClienteId;
+
+                mensagem.Nome = cliente.Nome;
+                mensagem.Email = cliente.Email;
+                mensagem.Morada = cliente.Morada;
+                mensagem.AnoNascimento = cliente.AnoNascimento;
+                mensagem.Telefone = cliente.Telefone;
+
+                _repositorio.Adicionar(cliente);
+
+                _notification.Success("Cliente adicionado com a mensagem associada");
+                return RedirectToAction("Index");
+            }
+
+            // Lida com a situação em que não foi encontrada uma mensagem válida
+            _notification.Error("A mensagem não pôde ser associada ao cliente.");
+            return View("Adicionar", cliente);
+        }
+
+
+
+
+
+
     }
 }

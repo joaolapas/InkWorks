@@ -17,6 +17,12 @@ namespace InkWorks.Repositorio
                 .Include(t => t.Cliente)  
                 .ToList();
         }
+        public List<Trabalho> ListarTrabalhosDoCliente(int clienteId)
+        {
+            return _appDbContext.Trabalhos
+                .Where(t => t.ClienteId == clienteId)
+                .ToList();
+        }
         public Trabalho ListarPorId(int id)
         {
             return _appDbContext.Trabalhos.FirstOrDefault(x => x.TrabalhoId == id);

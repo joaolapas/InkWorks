@@ -28,7 +28,7 @@ namespace InkWorks.Data
             modelBuilder.Entity<Mensagem>()
                 .HasOne(m => m.Cliente)
                 .WithMany(c => c.Mensagens)
-                .HasForeignKey(m => m.ClienteId);
+                .HasForeignKey(m => m.ClienteId).IsRequired(false);
 
             modelBuilder.Entity<Imagem>()
                 .HasOne(i => i.Trabalho)
@@ -40,6 +40,11 @@ namespace InkWorks.Data
                 .WithMany(t => t.Sessoes)
                 .HasForeignKey(s => s.TrabalhoId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Cliente>()
+                .HasMany(c => c.Mensagens)
+                .WithOne(m => m.Cliente)
+                .HasForeignKey(m => m.ClienteId);
         }
     }
 }

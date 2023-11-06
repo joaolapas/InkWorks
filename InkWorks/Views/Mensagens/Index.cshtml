@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Mensagem>
+
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Mensagens</h1>
+        
+        <div class="d-flex w-50">
+            <div class="input-group ">
+            </div>
+            
+        </div>
+    </div>
+
+    <table id="Mensagens" class="table table-dark table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Recebida</th>
+                <th scope="col">Mensagem</th>
+                <th scope="col">opções</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (Model != null)
+            {
+                foreach (var msg in Model)
+                {
+                    <tr>
+                        <th scope="row">@msg.MensagemId</th>
+                        <td>@msg.Nome</td>
+                        <td>@msg.DataEnvio</td>
+                        <td>
+                            <a asp-action="Detalhes" asp-route-id="@msg.MensagemId">@Html.Raw(msg.MensagemTexto.Length > 35 ? msg.MensagemTexto.Substring(0, 35) + "..." : msg.MensagemTexto)</a>
+                        </td>
+                        
+                        
+                        
+                        <td class="d-flex justify-content-end gap-2">
+                            <a class="btn btn-secondary" title="Ver Mensagem completa" asp-controller="Mensagens" asp-action="Detalhes" asp-route-id="@msg.MensagemId"><i class="bi bi-three-dots"></i></a>
+                            <a class="btn btn-outline-success" title="Adicionar Trabalho a este cliente" asp-controller="Trabalhos" asp-action="Adicionar" asp-route-MensagemId=""><i class="bi bi-file-earmark-plus"></i></a>
+                            <a class="btn btn-outline-warning" title="Editar dados de cliente" asp-controller="Clientes" asp-action="Editar" asp-route-id=""><i class="bi bi-pencil"></i></a>
+                            <a class="btn btn-outline-danger" title="Remover cliente" asp-controller="Clientes" asp-action="Eliminar" asp-route-id="@msg.MensagemId"><i class="bi bi-trash3"></i></a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div class="m-lg-5"></div>
+</div>

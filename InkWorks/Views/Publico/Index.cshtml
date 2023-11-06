@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "_Layout";
 }
+@model Mensagem
 <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
     <div class="container px-4 px-lg-5">
         <a class="navbar-brand" href="#page-top">InkWorks</a>
@@ -159,38 +160,49 @@
         </div>
         <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
             <div class="col-lg-6">
-                <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                <form id="Mensagem" asp-controller="Mensagens" asp-action="Enviar" method="post">
                     <!-- Nome input-->
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="Nome" type="text" placeholder="Introduz o tue nome..." data-sb-validations="required" />
+                        <input class="form-control" id="Nome" type="text" asp-for="Nome" placeholder="Introduz o tue nome..." data-sb-validations="required" required />
                         <label for="Nome">Nome completo</label>
                         <div class="invalid-feedback" data-sb-feedback="Nome:required">É necessário introduzir o nome.</div>
                     </div>
                     <!-- Email address input-->
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="Email" type="email" placeholder="nome@exemplo.com" data-sb-validations="required,email" />
+                        <input class="form-control" id="Email" asp-for="Email" type="email" placeholder="nome@exemplo.com" data-sb-validations="required,email" required />
                         <label for="email">Email</label>
                         <div class="invalid-feedback" data-sb-feedback="Email:required">É necessário introduzir o teu Email.</div>
                         <div class="invalid-feedback" data-sb-feedback="email:email">Email inválido.</div>
                     </div>
                     <!-- Telefone input-->
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="Telefone" type="tel" placeholder="999999999" data-sb-validations="required" />
+                        <input class="form-control" id="Telefone" type="tel" asp-for="Telefone" placeholder="999999999" data-sb-validations="required" required />
                         <label for="phone">Telefone</label>
                         <div class="invalid-feedback" data-sb-feedback="Telefone:required">É necessário o teu número de telefone.</div>
                     </div>
+                    <!-- Morada input-->
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="Morada" type="tel" asp-for="Morada" placeholder="Cidade" data-sb-validations="required" required />
+                        <label for="phone">Cidade</label>
+                        <div class="invalid-feedback" data-sb-feedback="Morada:required">É necessário introduzir a tua Cidade.</div>
+                    </div>
+                    <!-- Ano de Nascimento input-->
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="AnoNascimento" type="tel" asp-for="AnoNascimento" placeholder="199X" data-sb-validations="required" required />
+                        <label for="phone">Ano de Nascimento</label>
+                        <div class="invalid-feedback" data-sb-feedback="Telefone:required">É necessário sabermos o ano em que nasceste!.</div>
+                    </div>
                     <!-- Mensagem input-->
                     <div class="form-floating mb-3">
-                        <textarea class="form-control" id="Mensagem" type="text" placeholder="Escreve a tua mensagem..." style="height: 10rem" data-sb-validations="required"></textarea>
+                        <textarea class="form-control" id="MensagemTexto" type="text" asp-for="MensagemTexto" placeholder="Escreve a tua mensagem..." style="height: 10rem" data-sb-validations="required" required></textarea>
                         <label for="message">Mensagem</label>
                         <div class="invalid-feedback" data-sb-feedback="Mensagem:required">Não te esqueças da mensagem!</div>
                     </div>
-
-
+                    
 
 
                     <!-- Submit -->
-                    <div class="d-grid"><button class="btn btn-primary btn-xl disabled" id="submitButton" type="submit">Enviar</button></div>
+                    <div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="submit">Enviar</button></div>
                 </form>
             </div>
         </div>

@@ -1,0 +1,57 @@
+﻿@model Mensagem
+
+<div class="container">
+    <h1>Detalhes da Mensagem</h1>
+
+    <table class="table table-dark">
+        <tr>
+            <th>Nome:</th>
+            <td>@Model.Nome</td>
+        </tr>
+        <tr>
+            <th>Morada:</th>
+            <td>@Model.Morada</td>
+        </tr>
+        <tr>
+            <th>Telefone:</th>
+            <td>@Model.Telefone</td>
+        </tr>
+        <tr>
+            <th>Email:</th>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <th>Ano de Nascimento:</th>
+            <td>@Model.AnoNascimento</td>
+        </tr>
+        <tr>
+            <th>Recebida:</th>
+            <td>@Model.DataEnvio</td>
+        </tr>
+    </table>
+    <div class="card text-white bg-light mb-3 text-center ">
+        <div class="card-header">Mensagem</div>
+        <div class="card-body">
+            <h5 class="card-title">@Model.DataEnvio</h5>
+            <h2 class="card-text text-dark">@Model.MensagemTexto</h2>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        @if(Model.ClienteId != null)
+        {
+            <a class="btn btn-outline-success" asp-controller="Clientes" asp-action="Detalhes" asp-route-id="@Model.ClienteId">Ver Cliente</a>
+            <a class="btn btn-outline-success" asp-controller="Mensagens" asp-action="Atribuir" asp-route-id="@Model.MensagemId">Atribuir a outro cliente</a>
+        }
+        else
+        {
+            <a class="btn btn-outline-success" asp-controller="Clientes" asp-action="AdicionarPorMsg" asp-route-id="@Model.MensagemId">Criar ficha de Cliente</a>
+            <a class="btn btn-outline-success" asp-controller="Mensagens" asp-action="Atribuir" asp-route-id="@Model.MensagemId">Atribuir a cliente existente</a>
+        }
+        
+        
+        <a class="btn btn-outline-danger" asp-controller="Mensagens" asp-action="Eliminar" asp-route-id="@Model.MensagemId">Eliminar Mensagem</a>
+        <a class="btn btn-outline-light" asp-controller="Mensagens" asp-action="Index">Voltar</a>
+    </div>
+
+</div>

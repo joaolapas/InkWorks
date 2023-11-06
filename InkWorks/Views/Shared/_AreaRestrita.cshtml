@@ -35,15 +35,19 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Trabalhos" asp-action="Index">Trabalhos</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Mensagens" asp-action="Index">Mensagens</a>
+                        </li>
                         @if (user.Perfil == InkWorks.Enums.PerfilEnum.Admin)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Utilizadores" asp-action="Index">Utilizadores</a>
+                                <a class="nav-link text-white btn btn-outline-danger" asp-area="" asp-controller="Utilizadores" asp-action="Index">Utilizadores</a>
                             </li>
                         }
+
                         
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-danger" asp-area="" asp-controller="Login" asp-action="Logout">Log out</a>
+                            <a class=" btn btn-outline-danger" asp-area="" asp-controller="Login" asp-action="Logout">Log out</a>
                         </li>
                     </ul>
                 </div>

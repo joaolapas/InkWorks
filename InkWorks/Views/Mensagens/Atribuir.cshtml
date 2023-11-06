@@ -1,0 +1,53 @@
+﻿@model Mensagem
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    ViewData["title"] = "Atribuir Mensagem a cliente";
+}
+
+
+<div class="container d-flex justify-content-center align-items-center py-4">
+    <div class="bg-dark text-white p-4 rounded">
+        <h1 class="display-5 mb-4">Atribuir mensagem a Cliente</h1>
+
+        <form method="post" asp-controller="Mensagens" asp-action="Atribuir" class="mt-2">
+            <input asp-for="MensagemId" hidden/>
+            <table class="table table-dark">
+                <tr>
+                    <th>Nome:</th>
+                    <td>@Model.Nome</td>
+                </tr>
+                <tr>
+                    <th>Morada:</th>
+                    <td>@Model.Morada</td>
+                </tr>
+                <tr>
+                    <th>Telefone:</th>
+                    <td>@Model.Telefone</td>
+                </tr>
+                <tr>
+                    <th>Email:</th>
+                    <td>@Model.Email</td>
+                </tr>
+                <tr>
+                    <th>Ano de Nascimento:</th>
+                    <td>@Model.AnoNascimento</td>
+                </tr>
+                <tr>
+                    <th>Recebida:</th>
+                    <td>@Model.DataEnvio</td>
+                </tr>
+            </table>
+            <p>Mensagem:</p>
+            <p>@Model.MensagemTexto</p>
+            <div class="form-group">
+                <label for="ClienteId">Selecione um Cliente:</label>
+                <select asp-for="ClienteId" asp-items="ViewBag.Clientes" class="form-control">
+                    <option value="">Selecione um Cliente</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-outline-success">Guardar</button>
+            <a class="btn btn-outline-light" asp-action="Index">Voltar</a>
+        </form>
+
+    </div>
+</div>

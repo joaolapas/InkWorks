@@ -28,6 +28,7 @@ namespace InkWorks.Models
         public List<Trabalho>? Trabalhos { get; set; }
 
         public List<Mensagem>? Mensagens { get; set; }
+        public virtual int? MsgId { get; set; }
     }
 
     public class Trabalho
@@ -79,8 +80,9 @@ namespace InkWorks.Models
         [EmailAddress]
         public string Email { get; set; }
 
-        public int ClienteId { get; set; }
-        public Cliente Cliente { get; set; }
+        public int? ClienteId { get; set; }
+        public Cliente? Cliente { get; set; }
+        public DateTime DataEnvio { get; set; }
     }
 
     public class Imagem

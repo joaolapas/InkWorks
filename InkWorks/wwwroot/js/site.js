@@ -32,5 +32,6 @@ $(document).ready(function () {
     inicializarDataTable('#Clientes');
     inicializarDataTable('#Trabalhos');
     inicializarDataTable('#Utilizadores');
+    inicializarDataTable('#Mensagens');
   
 });
