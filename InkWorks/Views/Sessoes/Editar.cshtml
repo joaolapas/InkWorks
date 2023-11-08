@@ -1,0 +1,43 @@
+﻿@model Sessao
+
+@{
+    ViewData["title"] = "Alterar Sessão";
+}
+
+
+<div class="container d-flex justify-content-center align-items-center py-4">
+    <div class="bg-dark text-white p-4 rounded">
+        <h1 class="display-5 mb-4">Alterar Sessão</h1>
+
+        <form method="post" asp-controller="Sessoes" asp-action="Editar" class="mt-2">
+            <div class="mb-3">
+                <label for="Titulo" class="form-label">Título:</label>
+                <input type="text" class="form-control" asp-for="Titulo" id="Titulo" required>
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+
+
+            <input type="hidden" asp-for="TrabalhoId" id="TrabalhoId" value="@Model.TrabalhoId" />
+
+            <div class="mb-3">
+                <label for="DataInicio" class="form-label">Data e hora de inicio:</label>
+                <input type="datetime-local" class="form-control" asp-for="DataInicio" id="DataInicio" required>
+                <span asp-validation-for="DataInicio" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label for="DataFinal" class="form-label">Data e hora final:</label>
+                <input type="datetime-local" class="form-control" asp-for="DataFinal" id="DataFinal" required>
+                <span asp-validation-for="DataFinal" class="text-danger"></span>
+            </div>
+
+
+
+
+
+
+            <button type="submit" class="btn btn-outline-success">Guardar</button>
+            <a class="btn btn-outline-light" asp-action="Index">Voltar</a>
+        </form>
+
+    </div>
+</div>

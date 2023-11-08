@@ -25,7 +25,7 @@ namespace InkWorks.Repositorio
             
             //gravar no banco de dados
             _appDbContext.Mensagens.Add(msg);
-                _appDbContext.SaveChanges();
+            _appDbContext.SaveChanges();
             return msg;
             
             

@@ -15,7 +15,8 @@ namespace InkWorks.Repositorio
         {
             return _appDbContext.Trabalhos
                 .Include(t => t.Cliente)
-                .ThenInclude(c => c.Mensagens) 
+                .ThenInclude(c => c.Mensagens)
+                .Include(s=>s.Sessoes)
                 .ToList();
         }
 
@@ -29,11 +30,12 @@ namespace InkWorks.Repositorio
         {
             return _appDbContext.Trabalhos
                 .Include(t => t.Imagens)
+                .Include(s => s.Sessoes)
                 .FirstOrDefault(t => t.TrabalhoId == id);
         }
         public Trabalho Adicionar(Trabalho trabalho)
         {
-            
+                
                 //gravar no banco de dados
                 _appDbContext.Trabalhos.Add(trabalho);
                 _appDbContext.SaveChanges();
@@ -54,6 +56,17 @@ namespace InkWorks.Repositorio
             _appDbContext.SaveChanges();
             return trabalho;
         }
-       
+        public void AtualizarTotalHorasParaTrabalho(int trabalhoId)
+        {
+            var trabalho = _appDbContext.Trabalhos.Include(t => t.Sessoes).FirstOrDefault(t => t.TrabalhoId == trabalhoId);
+
+            if (trabalho != null)
+            {
+                trabalho.TotalHoras = trabalho.Sessoes.Sum(s => s.Duracao); 
+                _appDbContext.SaveChanges();
+            }
+        }
+
+
     }
 }

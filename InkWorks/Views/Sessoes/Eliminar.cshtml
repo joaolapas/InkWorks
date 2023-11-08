@@ -1,0 +1,26 @@
+﻿@model Sessao
+
+@{
+    ViewData["title"] = "Eliminar Sessão";
+}
+
+
+<div class="container d-flex justify-content-center align-items-center py-4">
+    <div class="bg-dark text-white p-4 rounded">
+        <h1 class="display-5 mb-4">Apagar esta sessão?</h1>
+
+       <h3 class="text-danger">Tem a certeza que quer apagar os dados desta sessão?</h3>
+        <h3 class="text-danger">@Model.Titulo ?</h3>
+
+       <p>Todos os dados serão eliminados permanentemente</p>
+
+        <form method="post" asp-controller="Sessoes" asp-action="Eliminar">
+            
+            <input asp-for="TrabalhoId" hidden />
+            <button type="submit" class="btn btn-danger">Remover</button>
+            <a class="btn btn-outline-light" asp-action="Index">Voltar</a>
+        </form>
+       
+
+    </div>
+</div>

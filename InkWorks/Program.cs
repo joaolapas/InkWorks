@@ -22,6 +22,7 @@ builder.Services.AddScoped<ITrabalhoRepositorio, TrabalhoRepositorio>();
 builder.Services.AddScoped<IUtilizadorRepositorio, UtilizadorRepositorio>();
 builder.Services.AddScoped<IMensagemRepositorio, MensagemRepositorio>();
 builder.Services.AddScoped<IImagemRepositorio, ImagemRepositorio>();
+builder.Services.AddScoped<ISessaoRepositorio, SessaoRepositorio>();
 builder.Services.AddScoped<ISessao, Sessao>();
 
 //sessão
@@ -70,5 +71,6 @@ app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Publico}/{action=Index}/{id?}");
+
 
 app.Run();

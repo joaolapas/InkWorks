@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace InkWorks.Controllers
 {
-    
+    [UtilizadorLogado]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

@@ -33,5 +33,7 @@ $(document).ready(function () {
     inicializarDataTable('#Trabalhos');
     inicializarDataTable('#Utilizadores');
     inicializarDataTable('#Mensagens');
+    inicializarDataTable('#Sessoes');
   
 });
+

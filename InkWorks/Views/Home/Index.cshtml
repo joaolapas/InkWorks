@@ -5,10 +5,15 @@
 
 
 <div class="text-center">
-    <h1 class="display-4">Welcome, </br><span class="text-success">@ViewBag.Nome</span></h1>
+    <h1 class="display-4">Bem-vindo, <span class="text-success">@ViewBag.Nome</span></h1>
     </br>
     <h4 class="">@DateTime.Now.ToShortDateString()</h4>
-    <p>Hoje tem <span class="text-success">X</span>  marcações</p>
-    <a class="btn btn-outline-success" asp-asp-controller="" asp-action="">Ver marcações</a>
+
+    <a class="btn btn-outline-success" asp-controller="Sessoes" asp-action="Index">Ver marcações</a>
+    <a class="btn btn-outline-warning" asp-controller="Mensagens" asp-action="Index">Ver Mensagens</a>
 </div>
-<div id='calendar'></div>
+<div id='calendario'></div>
+
+
+
+

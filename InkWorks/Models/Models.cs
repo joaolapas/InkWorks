@@ -129,6 +129,7 @@ namespace InkWorks.Models
     public class Sessao
     {
         public int Id { get; set; }
+        public string Titulo { get; set; }
 
         [Display(Name = "Data de Início")]
         public DateTime DataInicio { get; set; }
@@ -139,7 +140,14 @@ namespace InkWorks.Models
         public int TrabalhoId { get; set; }
         public Trabalho Trabalho { get; set; }
 
-        public Cliente Cliente { get; set; }
+        public Cliente? Cliente { get; set; }
+        public virtual int Duracao { get; set; } 
+
+        public Sessao()
+        {
+            
+            Duracao = (int)(DataFinal - DataInicio).TotalHours;
+        }
     }
 
 
