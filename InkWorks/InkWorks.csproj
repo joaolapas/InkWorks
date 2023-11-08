@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <Content Remove="Views\Home\Privacy.cshtml" />
+    <Content Remove="wwwroot\uploads\76d4b83d-708e-408d-9cc1-49e137e0784c.jpg" />
+    <Content Remove="wwwroot\uploads\cf106aca-fd9b-4134-be88-a30f28a49e04.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +21,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
 </Project>

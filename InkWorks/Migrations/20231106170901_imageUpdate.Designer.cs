@@ -4,6 +4,7 @@ using InkWorks.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InkWorks.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231106170901_imageUpdate")]
+    partial class imageUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,7 +83,7 @@ namespace InkWorks.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TrabalhoId")
+                    b.Property<int>("TrabalhoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
@@ -244,7 +247,9 @@ namespace InkWorks.Migrations
                 {
                     b.HasOne("InkWorks.Models.Trabalho", "Trabalho")
                         .WithMany("Imagens")
-                        .HasForeignKey("TrabalhoId");
+                        .HasForeignKey("TrabalhoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Trabalho");
                 });

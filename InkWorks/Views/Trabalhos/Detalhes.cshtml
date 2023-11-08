@@ -1,0 +1,84 @@
+﻿@model Trabalho
+
+<div class="container">
+    <h1>Dados do Trabalho</h1>
+
+    <table class="table table-dark">
+        <tr>
+            <th>Nome:</th>
+            <td>@Model.Titulo</td>
+        </tr>
+        <tr>
+            <th>Morada:</th>
+            <td>@Model.Estilo</td>
+        </tr>
+        <tr>
+            <th>Cliente:</th>
+            <td><a class="btn btn-outline-light" asp-controller="Clientes" asp-action="Detalhes" asp-route-id="@Model.ClienteId">Ver</a></td>
+        </tr>
+        <tr>
+            <th>Concluído:</th>
+            <td>@(Model.Concluido ? "Sim" : "Não")</td>
+        </tr>
+        <tr>
+            <td>Nº Sessões:</td>
+            <td>@Model.Sessoes?.Count()</td>
+        </tr>
+        <tr>
+            <th>Valor:</th>
+            <td>€@string.Format("{0:F2}", Model.Valor)</td>
+        </tr>
+        <tr>
+            <th>Observações:</th>
+            <td>@Model.ObservacoesTrabalho</td>
+
+        </tr>
+    </table>
+
+
+    <div class="mb-3">
+
+
+        <a class="btn btn-outline-success" title="Adicionar Imagens" asp-controller="Imagens" asp-action="Adicionar"><i class="bi bi-file-earmark-plus"></i></a>
+        <a class="btn btn-outline-warning" title="Editar dados deste trabalho" asp-controller="Trabalhos" asp-action="Editar" asp-route-id="@Model.TrabalhoId"><i class="bi bi-pencil"></i></a>
+        <a class="btn btn-outline-danger" title="Remover Trabalho" asp-controller="Trabalhos" asp-action="Eliminar" asp-route-id="@Model.TrabalhoId"> <i class="bi bi-trash3"></i></a>
+        <a class="btn btn-outline-light" asp-controller="Trabalhos" asp-action="Index">Voltar</a>
+    </div>
+
+    @if (Model.Imagens != null)
+    {
+        <h3>Imagens</h3>
+        <table id="galeria" class="table table-dark">
+            <thead>
+                <tr>
+                    <th class="text-center">Imagem</th>
+                    <th class="text-center">Título</th>
+                    <th class="text-center">Descrição</th>
+                    <th class="text-center">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var imagem in Model.Imagens)
+                {
+                    if (!imagem.Portfolio)
+                    {
+                        <tr>
+                            <td class="text-center align-middle"><img src="@imagem.Url" alt="@imagem.Titulo" width="100"></td>
+                            <td class="text-center align-middle">@imagem.Titulo</td>
+                            <td class="text-center align-middle">@imagem.Descricao</td>
+                            <td class="text-center align-middle">
+
+                                <a class="btn btn-outline-warning" asp-controller="Imagens" asp-action="Editar" asp-route-id="@imagem.ImagemId">Editar</a>
+                                <a class="btn btn-outline-danger" asp-controller="Imagens" asp-action="Eliminar" asp-route-Id="@imagem.ImagemId">Remover</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+    }
+
+
+
+</div>

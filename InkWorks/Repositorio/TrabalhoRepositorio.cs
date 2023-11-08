@@ -27,7 +27,9 @@ namespace InkWorks.Repositorio
         }
         public Trabalho ListarPorId(int id)
         {
-            return _appDbContext.Trabalhos.FirstOrDefault(x => x.TrabalhoId == id);
+            return _appDbContext.Trabalhos
+                .Include(t => t.Imagens)
+                .FirstOrDefault(t => t.TrabalhoId == id);
         }
         public Trabalho Adicionar(Trabalho trabalho)
         {

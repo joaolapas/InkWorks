@@ -45,6 +45,12 @@ namespace InkWorks.Controllers
             };
             return View(trabalho);
         }
+        public IActionResult Detalhes(int id)
+        {
+            Trabalho trabalho = _repositorio.ListarPorId(id);
+            return View(trabalho);
+
+        }
 
 
         public IActionResult Editar(int id)

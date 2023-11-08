@@ -1,0 +1,38 @@
+﻿@model Imagem
+
+@{
+    ViewData["title"] = "Eliminar Imagem";
+}
+<div class="d-flex flex-column justify-content-center align-items-center">
+    <div class="w-50">
+        <h3>Eliminar Imagem</h3>
+
+        <div class="text-center">
+            <img src="@Model.Url" alt="Imagem" class="img-fluid">
+        </div>
+
+        <h4>Detalhes da Imagem:</h4>
+        <table class="table table-dark">
+            <tbody>
+                <tr>
+                    <th>Título:</th>
+                    <td>@Model.Titulo</td>
+                </tr>
+                <tr>
+                    <th>Descrição:</th>
+                    <td>@Model.Descricao</td>
+                </tr>
+                <tr>
+                    <th>Galeria:</th>
+                    <td>@(Model.Portfolio ? "Sim" : "Não")</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>Tem certeza que deseja eliminar esta imagem?</p>
+
+        <a class="btn btn-outline-danger" asp-controller="Imagens" asp-action="ConfirmaEliminar" asp-route-id="@Model.ImagemId">Remover</a>
+
+        <a class="btn btn-outline-light" asp-controller="Imagens" asp-action="Index">Voltar</a>
+    </div>
+</div>

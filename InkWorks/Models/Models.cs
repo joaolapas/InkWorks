@@ -95,16 +95,10 @@ namespace InkWorks.Models
 
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
+        public bool Portfolio { get; set; }
 
-        [Display(Name = "Descrição Longa")]
-        public string DescricaoLonga { get; set; }
-
-        public string Estilo { get; set; }
-
-        public string Observacoes { get; set; }
-
-        public int TrabalhoId { get; set; }
-        public Trabalho Trabalho { get; set; }
+        public int? TrabalhoId { get; set; }
+        public Trabalho? Trabalho { get; set; }
     }
 
     public class Utilizador

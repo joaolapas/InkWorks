@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "_Layout";
 }
-@model Mensagem
+@model PublicoViewModel
 <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
     <div class="container px-4 px-lg-5">
         <a class="navbar-brand" href="#page-top">InkWorks</a>
@@ -35,7 +35,7 @@
 <!-- Sobre-->
 <section class="page-section bg-primary" id="about">
     <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class "row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8 text-center">
                 <h2 class="text-white mt-0">Criamos arte única para guardares a vida toda!</h2>
                 <hr class="divider divider-light" />
@@ -43,7 +43,7 @@
                 <p class="text-white-75 mb-4">Explica o que tens em mente...</p>
                 <p class="text-white-75 mb-4"> Serás consultado por um artista profissional e experiente.</p>
                 <p class="text-white-75 mb-4"> No nosso estúdio privado atendemos por marcação de forma premium!.</p>
-                <p class="text-white-75 mb-4">Não te esqueças: Tatuagem é uma arte que vais levar paraa vida!</p>
+                <p class="text-white-75 mb-4">Não te esqueças: Tatuagem é uma arte que vais levar para vida!</p>
                 <a class="btn btn-light btn-xl" href="#services">Vamos lá!!</a>
             </div>
         </div>
@@ -73,82 +73,44 @@
                 <div class="mt-5">
                     <div class="mb-2"><i class="bi-person-lines-fill fs-1 text-primary"></i></div>
                     <h3 class="h4 mb-2">Artistas experientes</h3>
-                    <p class="text-muted mb-0">Máximo de proffisionalismo! Máximo de conhecimento técnico!</p>
+                    <p class="text-muted mb-0">Máximo de profissionalismo! Máximo de conhecimento técnico!</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 text-center">
                 <div class="mt-5">
                     <div class="mb-2"><i class="bi-heart fs-1 text-primary"></i></div>
                     <h3 class="h4 mb-2">Feito com amor</h3>
-                    <p class="text-muted mb-0">Tatuagem é a nossa paixão! Tudo o que é feito om amor carrega boas energias!</p>
+                    <p class="text-muted mb-0">Tatuagem é a nossa paixão! Tudo o que é feito com amor carrega boas energias!</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Portfolio-->
+<!-- Portfolio -->
 <div id="portfolio">
     <div class="container-fluid p-0">
         <div class="row g-0">
-            <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="https://picsum.photos/600/400" title="Project Name">
-                    <img class="img-fluid" src="https://picsum.photos/600/400" alt="..." />
-                    <div class="portfolio-box-caption">
-                        <div class="project-category text-white-50">Category</div>
-                        <div class="project-name">Project Name</div>
+            @foreach (var imagem in Model.ImagensPortfolio)
+            {
+                if (imagem.Portfolio)
+                {
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="@imagem.Url" title="@imagem.Titulo">
+                            <img class="img-fluid" src="@imagem.Url" alt="@imagem.Titulo" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">Categoria</div>
+                                <div class="project-name">@imagem.Descricao</div>
+                            </div>
+                        </a>
                     </div>
-                </a>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="https://picsum.photos/600/400" title="Project Name">
-                    <img class="img-fluid" src="https://picsum.photos/600/400" alt="..." />
-                    <div class="portfolio-box-caption">
-                        <div class="project-category text-white-50">Category</div>
-                        <div class="project-name">Project Name</div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="https://picsum.photos/600/400" title="Project Name">
-                    <img class="img-fluid" src="https://picsum.photos/600/400" alt="..." />
-                    <div class="portfolio-box-caption">
-                        <div class="project-category text-white-50">Category</div>
-                        <div class="project-name">Project Name</div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="https://picsum.photos/600/400" title="Project Name">
-                    <img class="img-fluid" src="https://picsum.photos/600/400" alt="..." />
-                    <div class="portfolio-box-caption">
-                        <div class="project-category text-white-50">Category</div>
-                        <div class="project-name">Project Name</div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="https://picsum.photos/600/400" title="Project Name">
-                    <img class="img-fluid" src="https://picsum.photos/600/400" alt="..." />
-                    <div class="portfolio-box-caption">
-                        <div class="project-category text-white-50">Category</div>
-                        <div class="project-name">Project Name</div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="https://picsum.photos/600/400" title="Project Name">
-                    <img class="img-fluid" src="https://picsum.photos/600/400" alt="..." />
-                    <div class="portfolio-box-caption p-3">
-                        <div class="project-category text-white-50">Category</div>
-                        <div class="project-name">Project Name</div>
-                    </div>
-                </a>
-            </div>
+                }
+                
+            }
         </div>
     </div>
 </div>
 
-<!-- Enviar mensagem-->
+<!-- Enviar mensagem -->
 <section class="page-section" id="contact">
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -163,44 +125,41 @@
                 <form id="Mensagem" asp-controller="Mensagens" asp-action="Enviar" method="post">
                     <!-- Nome input-->
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="Nome" type="text" asp-for="Nome" placeholder="Introduz o tue nome..." data-sb-validations="required" required />
+                        <input class="form-control" id="Nome" type="text" asp-for="Mensagem.Nome" placeholder="Introduz o teu nome..." data-sb-validations="required" required />
                         <label for="Nome">Nome completo</label>
                         <div class="invalid-feedback" data-sb-feedback="Nome:required">É necessário introduzir o nome.</div>
                     </div>
                     <!-- Email address input-->
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="Email" asp-for="Email" type="email" placeholder="nome@exemplo.com" data-sb-validations="required,email" required />
+                        <input class="form-control" id="Email" asp-for="Mensagem.Email" type="email" placeholder="nome@exemplo.com" data-sb-validations="required,email" required />
                         <label for="email">Email</label>
                         <div class="invalid-feedback" data-sb-feedback="Email:required">É necessário introduzir o teu Email.</div>
                         <div class="invalid-feedback" data-sb-feedback="email:email">Email inválido.</div>
                     </div>
                     <!-- Telefone input-->
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="Telefone" type="tel" asp-for="Telefone" placeholder="999999999" data-sb-validations="required" required />
+                        <input class="form-control" id="Telefone" type="tel" asp-for="Mensagem.Telefone" placeholder="999999999" data-sb-validations="required" required />
                         <label for="phone">Telefone</label>
                         <div class="invalid-feedback" data-sb-feedback="Telefone:required">É necessário o teu número de telefone.</div>
                     </div>
                     <!-- Morada input-->
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="Morada" type="tel" asp-for="Morada" placeholder="Cidade" data-sb-validations="required" required />
+                        <input class="form-control" id="Morada" type="tel" asp-for="Mensagem.Morada" placeholder="Cidade" data-sb-validations="required" required />
                         <label for="phone">Cidade</label>
                         <div class="invalid-feedback" data-sb-feedback="Morada:required">É necessário introduzir a tua Cidade.</div>
                     </div>
                     <!-- Ano de Nascimento input-->
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="AnoNascimento" type="tel" asp-for="AnoNascimento" placeholder="199X" data-sb-validations="required" required />
+                        <input class="form-control" id="AnoNascimento" type="tel" asp-for="Mensagem.AnoNascimento" placeholder="199X" data-sb-validations="required" required />
                         <label for="phone">Ano de Nascimento</label>
                         <div class="invalid-feedback" data-sb-feedback="Telefone:required">É necessário sabermos o ano em que nasceste!.</div>
                     </div>
                     <!-- Mensagem input-->
                     <div class="form-floating mb-3">
-                        <textarea class="form-control" id="MensagemTexto" type="text" asp-for="MensagemTexto" placeholder="Escreve a tua mensagem..." style="height: 10rem" data-sb-validations="required" required></textarea>
+                        <textarea class="form-control" id="MensagemTexto" type="text" asp-for="Mensagem.MensagemTexto" placeholder="Escreve a tua mensagem..." style="height: 10rem" data-sb-validations="required" required></textarea>
                         <label for="message">Mensagem</label>
                         <div class="invalid-feedback" data-sb-feedback="Mensagem:required">Não te esqueças da mensagem!</div>
                     </div>
-                    
-
-
                     <!-- Submit -->
                     <div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="submit">Enviar</button></div>
                 </form>
