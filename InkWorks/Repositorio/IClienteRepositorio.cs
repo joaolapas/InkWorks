@@ -11,7 +11,7 @@ namespace InkWorks.Repositorio
         Cliente Adicionar(Cliente cliente);
         Cliente Editar(Cliente cliente);
         Cliente Eliminar(Cliente cliente);
-        
+
 
     }
 }

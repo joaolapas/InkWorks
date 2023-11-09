@@ -19,7 +19,7 @@ namespace InkWorks.Controllers
         }
         public IActionResult Index()
         {
-            //se já estiver logado, redirecionar para área restrita
+            //se já estiver logado, redireciona para área restrita
             if (_sessao.BuscarSessaoUtilizador() != null) return RedirectToAction("Index", "Home");
             return View();
         }
@@ -37,14 +37,14 @@ namespace InkWorks.Controllers
                     {
                         if (user.PasswordValida(login.Password))
                         {
-                            _sessao.CriarSessaoUtilizador(user)
-;                           _notification.Success("Autenticado com sucesso!");
+                            _sessao.CriarSessaoUtilizador(user);
+                            _notification.Success("Autenticado com sucesso!");
                             return RedirectToAction("Index", "Home");
                         }
                         _notification.Error("Email e/ou  passord incorretas");
                         return RedirectToAction("Index", "Login");
                     }
-                    
+
                     _notification.Error("Email e/ou  passord incorretas");
                     return RedirectToAction("Index", "Login");
 
@@ -60,7 +60,7 @@ namespace InkWorks.Controllers
                 _notification.Error("Não conseguimos realizar o Login, tente novamente!");
                 return RedirectToAction("Index");
             }
-            
+
         }
 
         public IActionResult Logout()

@@ -21,9 +21,9 @@ namespace InkWorks.Controllers
         }
         public IActionResult Index()
         {
-            //Pedir dados
+            
             List<Mensagem> msgs = _repositorio.ListarTodos();
-            // Passa os dados para a view
+           
             return View("Index", msgs);
         }
         public IActionResult Enviar()
@@ -33,7 +33,17 @@ namespace InkWorks.Controllers
         public IActionResult Atribuir(int id)
         {
             Mensagem mensagem = _repositorio.ListarPorId(id);
+            if (mensagem == null)
+            {
+                _notification.Error("Mensagem não encontrada!");
+                return RedirectToAction("Index");
+            }
             var clientes = _clientes.ListarTodos();
+            if (clientes == null)
+            {
+                _notification.Error("Erro ao carregar clientes!");
+                return RedirectToAction("Index");
+            }
 
             ViewBag.Clientes = new SelectList(clientes, "ClienteId", "Nome");
 
@@ -43,6 +53,11 @@ namespace InkWorks.Controllers
         public IActionResult Detalhes(int id)
         {
             var msg = _repositorio.ListarPorId(id);
+            if (msg == null)
+            {
+                _notification.Error("Mensagem não encontrada!");
+                return RedirectToAction("Index");
+            }
             return View(msg);
         }
         [HttpPost]
@@ -54,14 +69,19 @@ namespace InkWorks.Controllers
             return RedirectToAction("Index", "Publico");
         }
         [HttpPost]
-        public IActionResult Atribuir(Mensagem msg) 
+        public IActionResult Atribuir(Mensagem msg)
         {
             Mensagem mensagem = _repositorio.ListarPorId(msg.MensagemId);
+            if (mensagem == null)
+            {
+                _notification.Error("Mensagem não encontrada!");
+                return RedirectToAction("Index");
+            }
             mensagem.ClienteId = msg.ClienteId;
-            
-                _repositorio.Editar(mensagem);
-                _notification.Success("Mensagem Atribuida!");
-            
+
+            _repositorio.Editar(mensagem);
+            _notification.Success("Mensagem Atribuida!");
+
             return RedirectToAction("Index");
         }
     }

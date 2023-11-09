@@ -1,6 +1,5 @@
 ﻿using InkWorks.Data;
 using InkWorks.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 namespace InkWorks.Repositorio
 {
@@ -31,13 +30,11 @@ namespace InkWorks.Repositorio
 
         public Cliente Adicionar(Cliente cliente)
         {
-            
-                //gravar no banco de dados
-                _appDbContext.Clientes.Add(cliente);
-                _appDbContext.SaveChanges();
-                return cliente;
-            
-            
+            _appDbContext.Clientes.Add(cliente);
+            _appDbContext.SaveChanges();
+            return cliente;
+
+
         }
         public Cliente Editar(Cliente cliente)
         {
@@ -52,6 +49,6 @@ namespace InkWorks.Repositorio
             _appDbContext.SaveChanges();
             return cliente;
         }
-       
+
     }
 }

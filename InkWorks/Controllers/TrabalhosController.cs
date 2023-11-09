@@ -1,10 +1,9 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using InkWorks.Data;
 using InkWorks.Filters;
+using InkWorks.Migrations;
 using InkWorks.Models;
 using InkWorks.Repositorio;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace InkWorks.Controllers
 {
@@ -14,7 +13,7 @@ namespace InkWorks.Controllers
         private readonly ITrabalhoRepositorio _repositorio;
         private readonly IClienteRepositorio _repositorioCliente;
         private readonly INotyfService _notification;
-        public TrabalhosController(ITrabalhoRepositorio repositorio,IClienteRepositorio repositorioClientes, INotyfService notification)
+        public TrabalhosController(ITrabalhoRepositorio repositorio, IClienteRepositorio repositorioClientes, INotyfService notification)
         {
             _repositorio = repositorio;
             _repositorioCliente = repositorioClientes;
@@ -23,9 +22,12 @@ namespace InkWorks.Controllers
 
         public IActionResult Index()
         {
-            //Pedir dados
             List<Trabalho> trabalhos = _repositorio.ListarTodos();
-            // Passa os dados para a view
+            if (trabalhos == null)
+            {
+                _notification.Error("Erro ao carregar trabalhos!");
+                return RedirectToAction("Index");
+            }
             return View("Index", trabalhos);
         }
         public IActionResult Adicionar(int ClienteId)
@@ -34,20 +36,25 @@ namespace InkWorks.Controllers
 
             if (cliente == null)
             {
-                // Cliente não encontrado, pode lidar com isso adequadamente, como redirecionar para uma página de erro
-                return RedirectToAction("ClienteNaoEncontrado");
+                _notification.Error("Erro ao carregar trabalhos!");
+                return RedirectToAction("Index");
             }
 
             var trabalho = new Trabalho
             {
                 ClienteId = ClienteId,
-                Cliente = cliente // Atribua o objeto de cliente recuperado
+                Cliente = cliente 
             };
             return View(trabalho);
         }
         public IActionResult Detalhes(int id)
         {
             Trabalho trabalho = _repositorio.ListarPorId(id);
+            if (trabalho == null)
+            {
+                _notification.Error("Erro ao carregar trabalho!");
+                return RedirectToAction("Index");
+            }
             return View(trabalho);
 
         }
@@ -55,12 +62,13 @@ namespace InkWorks.Controllers
 
         public IActionResult Editar(int id)
         {
-           
+
             Trabalho trabalho = _repositorio.ListarPorId(id);
 
             if (trabalho == null)
             {
-                return NotFound();
+                _notification.Error("Erro ao carregar trabalho!");
+                return RedirectToAction("Index");
             }
 
             return View(trabalho);
@@ -72,9 +80,10 @@ namespace InkWorks.Controllers
 
             if (trabalho == null)
             {
-                return NotFound();
+                _notification.Error("Erro ao carregar trabalho!");
+                return RedirectToAction("Index");
             }
-            
+
 
             return View(trabalho);
         }
@@ -82,6 +91,11 @@ namespace InkWorks.Controllers
         [HttpPost]
         public IActionResult Adicionar(Trabalho trabalho)
         {
+            if (trabalho == null)
+            {
+                _notification.Error("Erro ao carregar trabalho!");
+                return RedirectToAction("Index");
+            }
 
             _repositorio.Adicionar(trabalho);
             _notification.Success("Trabalho adicionado!");
@@ -90,10 +104,12 @@ namespace InkWorks.Controllers
         [HttpPost]
         public IActionResult Editar(Trabalho trabalho)
         {
-            if (ModelState.IsValid)
+            if (trabalho == null)
             {
-                _repositorio.Editar(trabalho);
+                _notification.Error("Erro ao carregar trabalho!");
+                return RedirectToAction("Index");
             }
+            _repositorio.Editar(trabalho);
             _notification.Success("Trabalho editado!");
             return RedirectToAction("Index");
         }
@@ -103,14 +119,15 @@ namespace InkWorks.Controllers
         {
             if (trabalho == null)
             {
-                return NotFound();
+                _notification.Error("Erro ao carregar trabalho!");
+                return RedirectToAction("Index");
             }
             _repositorio.Eliminar(trabalho);
             _notification.Success("Trabalho eliminado!");
 
 
             return RedirectToAction("Index");
-            
+
         }
     }
 }

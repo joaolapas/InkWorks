@@ -10,7 +10,7 @@ namespace InkWorks.Repositorio
         Imagem Adicionar(Imagem img);
         Imagem Editar(Imagem img);
         Imagem Eliminar(Imagem img);
-        
+
 
     }
 }

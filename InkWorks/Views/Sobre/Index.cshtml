@@ -1,0 +1,133 @@
+﻿@{
+    ViewData["title"] = "Sobre";
+}
+<div class="container mt-4">
+    <div class="text-center">
+        <h2>████ █┼┼█ █┼█ █┼┼┼█ ███ ███ █┼█ ███</h2>
+        <h2>┼█┼ ██▄█ ██▄ █┼█┼█ █┼█ █▄┼ ██▄ █▄▄</h2>
+        <h2>▄█▄ █┼██ █┼█ █▄█▄█ █▄█ █┼█ █┼█ ▄▄█</h2>
+    </div>
+    <div class="text-center mt-4">
+        <p>----&gt;Isto não é o relatório!&lt;----</p>
+    </div>
+    <div class=" mt-4">
+        <h3>Para executar o projeto:</h3>
+        <ol>
+            <li>Abrir a solução no Visual Studio</li>
+            <li>Carregar o arquivo InkWorks.bacpac no SQL Server Management Studio (SSMS) para carregar a base de dados</li>
+            <li>Executar em servidor local</li>
+        </ol>
+    </div>
+    <div class="text-center mt-4">
+        <p>Também pode ser consultada uma versão online por um tempo indeterminado em:</p>
+        <a href="https://inkworks.somee.com/">https://inkworks.somee.com/</a>
+    </div>
+    <div class="text-center mt-4">
+        <h3>Usar as credenciais para fazer login no BackOffice do site como administrador:</h3>
+        <p>Email: anacleto@email.com</p>
+        <p>Password: anacleto</p>
+    </div>
+    <div class="mt-4">
+        <h3>Funcionalidades do Sistema:</h3>
+        <h4>Área pública:</h4>
+        <ul>
+            <li>Navegar e ver informações da empresa</li>
+            <li>Ver o portfólio (que é carregado no BackOffice)</li>
+            <li>Enviar mensagens à empresa (recebidas no BackOffice)</li>
+            <li>Fazer login para a Área restrita</li>
+        </ul>
+        <h4>Área Restrita (BackOffice):</h4>
+        <h5>Home:</h5>
+        <ul>
+            <li>Ver mensagem de boas-vindas</li>
+            <li>Botões de direcionamento rápido</li>
+            <li>Calendário que mostra as sessões agendadas</li>
+        </ul>
+        <h5>Clientes:</h5>
+        <ul>
+            <li>Ver lista de clientes</li>
+            <li>Criar novo Cliente</li>
+            <li>Criar trabalho associado a cada um dos clientes</li>
+            <li>Editar cada um dos clientes</li>
+            <li>Remover cada um dos clientes</li>
+            <li>Detalhes: Ficha de cliente</li>
+            <ul>
+                <li>Ver/Editar/Remover dados deste cliente</li>
+                <li>Criar trabalho associado a este cliente</li>
+                <li>Histórico de trabalhos que o cliente realizou</li>
+                <ul>
+                    <li>Navegar para cada um deles</li>
+                    <li>Editar ou remover cada um deles</li>
+                </ul>
+                <li>Histórico de mensagens associadas a este cliente</li>
+                <ul>
+                    <li>Navegar para cada um deles</li>
+                    <li>Editar ou remover cada um deles</li>
+                </ul>
+            </ul>
+        </ul>
+        <h5>Trabalhos:</h5>
+        <ul>
+            <li>Ver lista de trabalhos</li>
+            <li>Criar Sessão associada a cada um dos trabalhos</li>
+            <li>Editar cada um dos trabalhos</li>
+            <li>Remover cada um dos trabalhos</li>
+            <li>Detalhes: Dados do trabalho</li>
+            <ul>
+                <li>Ver/Editar/Remover dados deste trabalho</li>
+                <li>Criar Sessão associada a este trabalho específico</li>
+                <li>Anexar nova imagem a este trabalho</li>
+                <li>Imagens anexadas a este trabalho</li>
+                <ul>
+                    <li>Editar ou remover cada uma delas</li>
+                </ul>
+                <li>Histórico de mensagens associadas a este cliente</li>
+                <ul>
+                    <li>Navegar para cada um deles</li>
+                    <li>Editar ou remover cada um deles</li>
+                </ul>
+            </ul>
+        </ul>
+        <h5>Marcações (Sessões agendadas):</h5>
+        <ul>
+            <li>Ver lista de sessões marcadas</li>
+            <li>Alterar ou Remover cada uma delas</li>
+            <li>Quando é criada, alterada ou removida, aparece no calendário da Home.</li>
+        </ul>
+        <h5>Imagens:</h5>
+        <ul>
+            <li>Adicionar Imagens a:</li>
+            <li>Trabalhos</li>
+            <li>Galeria/Portfólio da Área Pública</li>
+            <li>Não associadas a nada em específico (imagens de referência, etc.)</li>
+            <li>Lista de Imagens carregadas na Galeria - Editar/Remover</li>
+            <li>Lista de Imagens anexadas a trabalhos - Editar/Remover</li>
+        </ul>
+        <h5>Mensagens:</h5>
+        <ul>
+            <li>Lista de Mensagens recebidas (enviadas a partir do formulário de contato da área pública)</li>
+            <li>Remover cada uma delas</li>
+            <li>Ver detalhes de mensagem</li>
+            <ul>
+                <li>Ver dados do Utilizador que enviou</li>
+                <li>Criar ficha de cliente a partir de uma mensagem recebida</li>
+                <li>Associar a cliente existente</li>
+                <li>(Caso já tenha sido associada, os botões [Criar Ficha de cliente][Atribuir a cliente] são substituídos por [Ver cliente][Atribuir a outro])</li>
+            </ul>
+        </ul>
+        <h5>Utilizadores:</h5>
+        <ul>
+            <li>Lista de Utilizadores cadastrados no backOffice</li>
+            <li>Cada utilizador pode ser criado com uma autorização:</li>
+            <ul>
+                <li>Padrão (acesso a todas as funcionalidades de trabalho da área restrita)</li>
+                <li>Admin (acesso a todas as áreas + área de gestão de utilizadores)</li>
+            </ul>
+            <li>Criar novos utilizadores</li>
+            <li>Editar ou remover utilizadores existentes</li>
+        </ul>
+        <h5>Sobre:</h5>
+        <ul>
+            <li>IStruções sobre este projeto</li>
+        </ul>
+    </div>

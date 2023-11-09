@@ -10,7 +10,7 @@ namespace InkWorks.Repositorio
         Mensagem Enviar(Mensagem msg);
         Mensagem Editar(Mensagem msg);
         Mensagem Eliminar(Mensagem msg);
-        
+
 
     }
 }

@@ -11,7 +11,7 @@ namespace InkWorks.Repositorio
         Utilizador Adicionar(Utilizador utilizador);
         Utilizador Editar(Utilizador utilizador);
         Utilizador Eliminar(Utilizador utilizador);
-        
+
 
     }
 }

@@ -11,7 +11,7 @@ namespace InkWorks.Repositorio
         Trabalho Adicionar(Trabalho trabalho);
         Trabalho Editar(Trabalho trabalho);
         Trabalho Eliminar(Trabalho trabalho);
-        
+
 
     }
 }

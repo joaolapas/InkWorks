@@ -1,6 +1,5 @@
 ﻿using InkWorks.Data;
 using InkWorks.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 namespace InkWorks.Repositorio
 {
@@ -15,7 +14,7 @@ namespace InkWorks.Repositorio
         {
             return _appDbContext.Sessoes
                 .Include(t => t.Trabalho)
-                .ThenInclude(c => c.Cliente) 
+                .ThenInclude(c => c.Cliente)
                 .ToList();
         }
 
@@ -33,14 +32,14 @@ namespace InkWorks.Repositorio
         }
         public Sessao Adicionar(Sessao sessao)
         {
-            
-            
-                //gravar no banco de dados
-                _appDbContext.Sessoes.Add(sessao);
-                _appDbContext.SaveChanges();
-                return sessao;
-            
-            
+
+
+            //gravar no banco de dados
+            _appDbContext.Sessoes.Add(sessao);
+            _appDbContext.SaveChanges();
+            return sessao;
+
+
         }
         public Sessao Editar(Sessao sessao)
         {
@@ -55,6 +54,6 @@ namespace InkWorks.Repositorio
             _appDbContext.SaveChanges();
             return sessao;
         }
-       
+
     }
 }

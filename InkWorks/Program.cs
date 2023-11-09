@@ -1,12 +1,8 @@
-using Microsoft.EntityFrameworkCore;
-using InkWorks.Data;
-using InkWorks.Repositorio;
 using AspNetCoreHero.ToastNotification;
-using Microsoft.AspNetCore.Http;
+using InkWorks.Data;
 using InkWorks.Helper;
-using InkWorks.Migrations;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Net.Sockets;
+using InkWorks.Repositorio;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

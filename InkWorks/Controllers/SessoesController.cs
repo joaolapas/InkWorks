@@ -1,10 +1,9 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using InkWorks.Data;
 using InkWorks.Filters;
+using InkWorks.Migrations;
 using InkWorks.Models;
 using InkWorks.Repositorio;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace InkWorks.Controllers
 {
@@ -15,7 +14,7 @@ namespace InkWorks.Controllers
         private readonly ITrabalhoRepositorio _repositorioTrabalhos;
         private readonly IClienteRepositorio _repositorioClientes;
         private readonly INotyfService _notification;
-        public SessoesController(ISessaoRepositorio repositorio,ITrabalhoRepositorio repositorioTrabalhos, INotyfService notification, IClienteRepositorio repositorioClientes)
+        public SessoesController(ISessaoRepositorio repositorio, ITrabalhoRepositorio repositorioTrabalhos, INotyfService notification, IClienteRepositorio repositorioClientes)
         {
             _repositorio = repositorio;
             _repositorioTrabalhos = repositorioTrabalhos;
@@ -27,7 +26,11 @@ namespace InkWorks.Controllers
         {
             //Pedir dados
             List<Sessao> sessoes = _repositorio.ListarTodos();
-            // Passa os dados para a view
+            if(sessoes == null)
+            {
+                _notification.Error("Erro ao carregar sessões!");
+                return RedirectToAction("Index");
+            }
             return View("Index", sessoes);
         }
         public IActionResult Adicionar(int TrabalhoId)
@@ -36,8 +39,8 @@ namespace InkWorks.Controllers
 
             if (trabalho == null)
             {
-                
-                return RedirectToAction("ClienteNaoEncontrado");
+                _notification.Error("Trabalho não encontrado!");
+                return RedirectToAction("Index");
             }
 
             var sessao = new Sessao
@@ -50,6 +53,11 @@ namespace InkWorks.Controllers
         public IActionResult Detalhes(int id)
         {
             Sessao sessao = _repositorio.ListarPorId(id);
+            if (sessao == null)
+            {
+                _notification.Error("Erro ao carregar detalhes!");
+                return RedirectToAction("Index");
+            }
             return View(sessao);
 
         }
@@ -57,8 +65,9 @@ namespace InkWorks.Controllers
 
         public IActionResult Editar(int id)
         {
-           
+
             Sessao sessao = _repositorio.ListarPorId(id);
+           
 
             if (sessao == null)
             {
@@ -78,7 +87,7 @@ namespace InkWorks.Controllers
                 _notification.Error("Não foi possível apagar esta sessão!");
                 return RedirectToAction("Index");
             }
-            
+
 
             return View(sessao);
         }
@@ -86,11 +95,16 @@ namespace InkWorks.Controllers
         [HttpPost]
         public IActionResult Adicionar(Sessao sessao)
         {
-           
+            if (sessao == null)
+            {
+                _notification.Error("Erro ao carregar sessão!");
+                return RedirectToAction("Index");
+            }
+
             sessao.Duracao = (int)(sessao.DataFinal - sessao.DataInicio).TotalHours;
 
             _repositorio.Adicionar(sessao);
-            _repositorioTrabalhos.AtualizarTotalHorasParaTrabalho(sessao.TrabalhoId); 
+            _repositorioTrabalhos.AtualizarTotalHorasParaTrabalho(sessao.TrabalhoId);
             _notification.Success("Sessão marcada!");
             return RedirectToAction("Index");
         }
@@ -98,7 +112,11 @@ namespace InkWorks.Controllers
         [HttpPost]
         public IActionResult Editar(Sessao sessao)
         {
-            
+            if (sessao == null)
+            {
+                _notification.Error("Erro ao carregar sessão!");
+                return RedirectToAction("Index");
+            }
             sessao.Duracao = (int)(sessao.DataFinal - sessao.DataInicio).TotalHours;
 
             _repositorio.Editar(sessao);
@@ -112,10 +130,11 @@ namespace InkWorks.Controllers
         {
             if (sessao == null)
             {
-                return NotFound();
+                _notification.Error("Erro ao carregar sessão!");
+                return RedirectToAction("Index");
             }
             _repositorio.Eliminar(sessao);
-            _repositorioTrabalhos.AtualizarTotalHorasParaTrabalho(sessao.TrabalhoId); 
+            _repositorioTrabalhos.AtualizarTotalHorasParaTrabalho(sessao.TrabalhoId);
             _notification.Success("Sessão eliminada!");
             return RedirectToAction("Index");
         }

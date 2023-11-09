@@ -1,6 +1,5 @@
 ﻿using InkWorks.Data;
 using InkWorks.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 namespace InkWorks.Repositorio
 {
@@ -21,13 +20,12 @@ namespace InkWorks.Repositorio
         }
         public Imagem Adicionar(Imagem img)
         {
-            
-                //gravar no banco de dados
-                _appDbContext.Imagens.Add(img);
-                _appDbContext.SaveChanges();
-                return img;
-            
-            
+
+            _appDbContext.Imagens.Add(img);
+            _appDbContext.SaveChanges();
+            return img;
+
+
         }
         public Imagem Editar(Imagem img)
         {
@@ -43,6 +41,6 @@ namespace InkWorks.Repositorio
             return img;
         }
 
-       
+
     }
 }

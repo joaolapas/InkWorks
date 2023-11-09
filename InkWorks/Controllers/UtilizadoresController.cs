@@ -1,5 +1,4 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using InkWorks.Data;
 using InkWorks.Filters;
 using InkWorks.Models;
 using InkWorks.Repositorio;
@@ -19,9 +18,12 @@ namespace InkWorks.Controllers
         }
         public IActionResult Index()
         {
-            //Pedir dados
             List<Utilizador> utilizadores = _repositorio.ListarTodos();
-            // Passa os dados para a view
+            if (utilizadores == null)
+            {
+                _notification.Error("Erro ao carregar utilizadores!");
+                return RedirectToAction("Index");
+            }
             return View("Index", utilizadores);
         }
         public IActionResult Adicionar()
@@ -30,25 +32,26 @@ namespace InkWorks.Controllers
         }
         public IActionResult Editar(int id)
         {
-           
-            Utilizador utilizador = _repositorio.ListarPorId(id);
 
+            Utilizador utilizador = _repositorio.ListarPorId(id);
             if (utilizador == null)
             {
-                
-                return NotFound();
+                _notification.Error("Erro ao carregar utilizador!");
+                return RedirectToAction("Index");
             }
-            
+
+
             return View(utilizador);
         }
         public IActionResult Eliminar(int id)
         {
-           
+
             Utilizador utilizador = _repositorio.ListarPorId(id);
 
             if (utilizador == null)
             {
-                return NotFound();
+                _notification.Error("Erro ao carregar utilizador!");
+                return RedirectToAction("Index");
             }
 
             return View(utilizador);
@@ -57,14 +60,23 @@ namespace InkWorks.Controllers
         [HttpPost]
         public IActionResult Adicionar(Utilizador utilizador)
         {
-
-                _repositorio.Adicionar(utilizador);
-                _notification.Success("Utilizador adicionado");
+            if (utilizador == null)
+            {
+                _notification.Error("Erro ao carregar utilizador!");
                 return RedirectToAction("Index");
+            }
+            _repositorio.Adicionar(utilizador);
+            _notification.Success("Utilizador adicionado");
+            return RedirectToAction("Index");
         }
         [HttpPost]
         public IActionResult Editar(Utilizador utilizador)
         {
+            if (utilizador == null)
+            {
+                _notification.Error("Erro ao carregar utilizador!");
+                return RedirectToAction("Index");
+            }
             if (ModelState.IsValid)
             {
                 _repositorio.Editar(utilizador);
@@ -78,14 +90,15 @@ namespace InkWorks.Controllers
         {
             if (utilizador == null)
             {
-                return NotFound();
+                _notification.Error("Erro ao carregar utilizador!");
+                return RedirectToAction("Index");
             }
             _repositorio.Eliminar(utilizador);
             _notification.Success("Cliente eliminado");
 
 
             return RedirectToAction("Index");
-            
+
         }
     }
 }

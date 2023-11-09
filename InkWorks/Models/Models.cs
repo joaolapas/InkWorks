@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using InkWorks.Enums;
 using System.ComponentModel.DataAnnotations;
-using InkWorks.Enums;
-using Microsoft.EntityFrameworkCore;
 
 namespace InkWorks.Models
 {
@@ -141,11 +138,11 @@ namespace InkWorks.Models
         public Trabalho Trabalho { get; set; }
 
         public Cliente? Cliente { get; set; }
-        public virtual int Duracao { get; set; } 
+        public virtual int Duracao { get; set; }
 
         public Sessao()
         {
-            
+
             Duracao = (int)(DataFinal - DataInicio).TotalHours;
         }
     }

@@ -1,7 +1,5 @@
 ﻿using InkWorks.Data;
 using InkWorks.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 namespace InkWorks.Repositorio
 {
     public class MensagemRepositorio : IMensagemRepositorio
@@ -22,13 +20,12 @@ namespace InkWorks.Repositorio
         public Mensagem Enviar(Mensagem msg)
         {
             msg.DataEnvio = DateTime.Now;
-            
-            //gravar no banco de dados
+
             _appDbContext.Mensagens.Add(msg);
             _appDbContext.SaveChanges();
             return msg;
-            
-            
+
+
         }
         public Mensagem Editar(Mensagem msg)
         {
@@ -43,6 +40,6 @@ namespace InkWorks.Repositorio
             _appDbContext.SaveChanges();
             return msg;
         }
-       
+
     }
 }

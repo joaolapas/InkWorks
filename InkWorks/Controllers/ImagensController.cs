@@ -1,11 +1,8 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using InkWorks.Data;
 using InkWorks.Filters;
 using InkWorks.Models;
 using InkWorks.Repositorio;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 
 namespace InkWorks.Controllers
 {
@@ -23,8 +20,8 @@ namespace InkWorks.Controllers
         }
         public IActionResult Index()
         {
-            var imagens = _repositorio.ListarTodos(); 
-            var trabalhos = _trabalhos.ListarTodos(); 
+            var imagens = _repositorio.ListarTodos();
+            var trabalhos = _trabalhos.ListarTodos();
 
             var viewModel = new ImagemTrabalhoViewModel
             {
@@ -42,7 +39,8 @@ namespace InkWorks.Controllers
 
             if (img == null)
             {
-                return NotFound();
+                _notification.Error("Imagem não encontrada!");
+                return RedirectToAction("Index");
             }
 
             var viewModel = new ImagemTrabalhoViewModel
@@ -57,6 +55,11 @@ namespace InkWorks.Controllers
         public IActionResult Eliminar(int id)
         {
             Imagem img = _repositorio.ListarPorId(id);
+            if (img == null)
+            {
+                _notification.Error("Imagem não encontrada!");
+                return RedirectToAction("Index");
+            }
             return View(img);
         }
 
@@ -70,16 +73,16 @@ namespace InkWorks.Controllers
             {
                 try
                 {
-                    
+
                     var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
 
-                    
+
                     if (!Directory.Exists(uploadsFolder))
                     {
                         Directory.CreateDirectory(uploadsFolder);
                     }
 
-                    
+
                     var nomeArquivo = Guid.NewGuid().ToString() + Path.GetExtension(imagem.FileName);
 
                     var caminhoCompleto = Path.Combine(uploadsFolder, nomeArquivo);
@@ -89,19 +92,19 @@ namespace InkWorks.Controllers
                         await imagem.CopyToAsync(stream);
                     }
 
-                    
+
                     Imagem imagemModel;
 
-                   
-                        imagemModel = new Imagem
-                        {
-                            Url = "/uploads/" + nomeArquivo, 
-                            Titulo = titulo,
-                            Descricao = descricao,
-                            Portfolio = galeria,
-                            TrabalhoId = TrabalhoId != 0 ? TrabalhoId : (int?)null
-                        };
-                   
+
+                    imagemModel = new Imagem
+                    {
+                        Url = "/uploads/" + nomeArquivo,
+                        Titulo = titulo,
+                        Descricao = descricao,
+                        Portfolio = galeria,
+                        TrabalhoId = TrabalhoId != 0 ? TrabalhoId : (int?)null
+                    };
+
 
                     _repositorio.Adicionar(imagemModel);
 
@@ -120,41 +123,42 @@ namespace InkWorks.Controllers
         public IActionResult Editar(ImagemTrabalhoViewModel viewModel)
         {
 
-                Imagem imagemExistente = _repositorio.ListarPorId(viewModel.Imagens[0].ImagemId);
-                if (imagemExistente != null)
-                {
-                    imagemExistente.Titulo = viewModel.Imagens[0].Titulo;
-                    imagemExistente.Descricao = viewModel.Imagens[0].Descricao;
-                    imagemExistente.Portfolio = viewModel.Imagens[0].Portfolio;
-                    imagemExistente.TrabalhoId = viewModel.TrabalhoId != 0 ? viewModel.TrabalhoId : (int?)null;
+            Imagem imagemExistente = _repositorio.ListarPorId(viewModel.Imagens[0].ImagemId);
+            if (imagemExistente != null)
+            {
+                imagemExistente.Titulo = viewModel.Imagens[0].Titulo;
+                imagemExistente.Descricao = viewModel.Imagens[0].Descricao;
+                imagemExistente.Portfolio = viewModel.Imagens[0].Portfolio;
+                imagemExistente.TrabalhoId = viewModel.TrabalhoId != 0 ? viewModel.TrabalhoId : (int?)null;
 
-                    _repositorio.Editar(imagemExistente);
-                    _notification.Success("Dados da Imagem atualizados!");
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                   
-                    _notification.Error("Imagem não encontrada.");
-                    return View(viewModel); 
-                }
-            
+                _repositorio.Editar(imagemExistente);
+                _notification.Success("Dados da Imagem atualizados!");
+                return RedirectToAction("Index");
+            }
+            else
+            {
+
+                _notification.Error("Imagem não encontrada.");
+                return View(viewModel);
+            }
+
         }
 
-        
+
         public IActionResult ConfirmaEliminar(int id)
         {
             Imagem imagem = _repositorio.ListarPorId(id);
 
             if (imagem == null)
             {
-                return NotFound();
+                _notification.Error("Imagem não encontrada!");
+                return RedirectToAction("Index");
             }
 
-            // Remova o registro do banco de dados
+            
             _repositorio.Eliminar(imagem);
 
-            // Exclua a imagem do sistema de arquivos
+           
             if (!string.IsNullOrEmpty(imagem.Url))
             {
                 var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", imagem.Url.TrimStart('/'));

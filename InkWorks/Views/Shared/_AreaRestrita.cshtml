@@ -27,8 +27,7 @@
                     center: '',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
                 },
-                navLinks: true, // can click day/week names to navigate views
-                editable: false,
+                navLinks: true, 
                 selectable: false,
                 
             });
@@ -83,6 +82,9 @@
                         
                         <li class="nav-item">
                             <a class=" btn btn-outline-danger" asp-area="" asp-controller="Login" asp-action="Logout">Log out</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white mx-lg-4" asp-area="" asp-controller="Sobre" asp-action="Index">Sobre este projeto</a>
                         </li>
                     </ul>
                 </div>

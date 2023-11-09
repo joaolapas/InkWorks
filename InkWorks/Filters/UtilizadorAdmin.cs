@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace InkWorks.Filters
 {
-    public class UtilizadorAdmin: ActionFilterAttribute
+    public class UtilizadorAdmin : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
@@ -30,7 +30,8 @@ namespace InkWorks.Filters
                     {"action", "Index" }
                 });
                 }
-                else if(user.Perfil != InkWorks.Enums.PerfilEnum.Admin){
+                else if (user.Perfil != InkWorks.Enums.PerfilEnum.Admin)
+                {
                     context.Result = new RedirectToRouteResult(new RouteValueDictionary
                 {
                     {"controller", "login" },

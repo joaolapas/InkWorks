@@ -1,6 +1,5 @@
 ﻿using InkWorks.Data;
 using InkWorks.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 namespace InkWorks.Repositorio
 {
@@ -16,7 +15,7 @@ namespace InkWorks.Repositorio
             return _appDbContext.Trabalhos
                 .Include(t => t.Cliente)
                 .ThenInclude(c => c.Mensagens)
-                .Include(s=>s.Sessoes)
+                .Include(s => s.Sessoes)
                 .ToList();
         }
 
@@ -35,13 +34,12 @@ namespace InkWorks.Repositorio
         }
         public Trabalho Adicionar(Trabalho trabalho)
         {
-                
-                //gravar no banco de dados
-                _appDbContext.Trabalhos.Add(trabalho);
-                _appDbContext.SaveChanges();
-                return trabalho;
-            
-            
+
+            _appDbContext.Trabalhos.Add(trabalho);
+            _appDbContext.SaveChanges();
+            return trabalho;
+
+
         }
         public Trabalho Editar(Trabalho trabalho)
         {
@@ -62,7 +60,7 @@ namespace InkWorks.Repositorio
 
             if (trabalho != null)
             {
-                trabalho.TotalHoras = trabalho.Sessoes.Sum(s => s.Duracao); 
+                trabalho.TotalHoras = trabalho.Sessoes.Sum(s => s.Duracao);
                 _appDbContext.SaveChanges();
             }
         }

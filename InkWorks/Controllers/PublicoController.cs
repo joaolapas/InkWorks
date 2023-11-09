@@ -1,6 +1,6 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using InkWorks.Repositorio;
 using InkWorks.Models;
+using InkWorks.Repositorio;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InkWorks.Controllers

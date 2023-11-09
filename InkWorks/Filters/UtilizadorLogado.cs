@@ -5,13 +5,13 @@ using Newtonsoft.Json;
 
 namespace InkWorks.Filters
 {
-    public class UtilizadorLogado :ActionFilterAttribute
+    public class UtilizadorLogado : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             string sessaoUtilizador = context.HttpContext.Session.GetString("sessaoUtilizador");
 
-            if(string.IsNullOrEmpty(sessaoUtilizador))
+            if (string.IsNullOrEmpty(sessaoUtilizador))
             {
                 context.Result = new RedirectToRouteResult(new RouteValueDictionary
                 {
@@ -22,7 +22,7 @@ namespace InkWorks.Filters
             else
             {
                 Models.Utilizador user = JsonConvert.DeserializeObject<Models.Utilizador>(sessaoUtilizador);
-                if(user == null)
+                if (user == null)
                 {
                     context.Result = new RedirectToRouteResult(new RouteValueDictionary
                 {

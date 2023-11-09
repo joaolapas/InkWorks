@@ -1,7 +1,5 @@
 ﻿using InkWorks.Data;
 using InkWorks.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 namespace InkWorks.Repositorio
 {
     public class UtilizadorRepositorio : IUtilizadorRepositorio
@@ -21,13 +19,11 @@ namespace InkWorks.Repositorio
         }
         public Utilizador Adicionar(Utilizador utilizador)
         {
-            
-                //gravar no banco de dados
-                _appDbContext.Utilizadores.Add(utilizador);
-                _appDbContext.SaveChanges();
-                return utilizador;
-            
-            
+            _appDbContext.Utilizadores.Add(utilizador);
+            _appDbContext.SaveChanges();
+            return utilizador;
+
+
         }
         public Utilizador Editar(Utilizador utilizador)
         {

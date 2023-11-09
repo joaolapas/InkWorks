@@ -11,7 +11,7 @@ namespace InkWorks.Repositorio
         Sessao Adicionar(Sessao sessao);
         Sessao Editar(Sessao sessao);
         Sessao Eliminar(Sessao sessao);
-        
+
 
     }
 }

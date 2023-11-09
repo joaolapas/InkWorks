@@ -1,10 +1,8 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using InkWorks.Data;
 using InkWorks.Filters;
 using InkWorks.Models;
 using InkWorks.Repositorio;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace InkWorks.Controllers
 {
@@ -39,7 +37,8 @@ namespace InkWorks.Controllers
 
             if (mensagem == null)
             {
-                return NotFound();
+                _notification.Error("Não encontrado!");
+                return RedirectToAction("Index");
             }
 
             Cliente novoCliente = new Cliente
@@ -59,30 +58,36 @@ namespace InkWorks.Controllers
         {
 
             var cliente = _repositorio.ListarDetalhesPorId(id);
+            if (cliente == null)
+            {
+                _notification.Error("Cliente não encontrado!");
+                return RedirectToAction("Index");
+            }
             return View(cliente);
         }
 
         public IActionResult Editar(int id)
         {
-           
+
             Cliente cliente = _repositorio.ListarPorId(id);
 
             if (cliente == null)
             {
-                
-                return NotFound();
+                _notification.Error("Cliente não encontrado!");
+                return RedirectToAction("Index");
             }
-            
+
             return View(cliente);
         }
         public IActionResult Eliminar(int id)
         {
-           
+
             Cliente cliente = _repositorio.ListarPorId(id);
 
             if (cliente == null)
             {
-                return NotFound();
+                _notification.Error("Cliente não encontrado!");
+                return RedirectToAction("Index");
             }
 
             return View(cliente);
@@ -92,9 +97,9 @@ namespace InkWorks.Controllers
         public IActionResult Adicionar(Cliente cliente)
         {
 
-                _repositorio.Adicionar(cliente);
-                _notification.Success("Cliente adicionado");
-                return RedirectToAction("Index");
+            _repositorio.Adicionar(cliente);
+            _notification.Success("Cliente adicionado");
+            return RedirectToAction("Index");
         }
         [HttpPost]
         public IActionResult Editar(Cliente cliente)
@@ -112,7 +117,8 @@ namespace InkWorks.Controllers
         {
             if (cliente == null)
             {
-                return NotFound();
+                _notification.Error("Cliente não encontrado!");
+                return RedirectToAction("Index");
             }
             _repositorio.Eliminar(cliente);
             _notification.Success("Cliente eliminado");
@@ -126,13 +132,13 @@ namespace InkWorks.Controllers
         {
             int? msgIdNullable = cliente.MsgId;
             int msgId = msgIdNullable.HasValue ? msgIdNullable.Value : 0;
-            
+
 
             var mensagem = _mensagem.ListarPorId(msgId);
 
             if (mensagem != null)
             {
-               
+
                 mensagem.Cliente = cliente;
                 mensagem.ClienteId = cliente.ClienteId;
 
@@ -148,7 +154,7 @@ namespace InkWorks.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Lida com a situação em que não foi encontrada uma mensagem válida
+            //  situação em que não foi encontrada uma mensagem válida
             _notification.Error("A mensagem não pôde ser associada ao cliente.");
             return View("Adicionar", cliente);
         }
