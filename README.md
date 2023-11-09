@@ -13,10 +13,6 @@ Website com backoffice para gestão de pequeno negócio
 
 - [Como Utilizar](#como-utilizar)
 - [Funcionalidades](#funcionalidades)
-- [Capturas de Ecrã](#capturas-de-ecra)
-- [Licença](#licenca)
-
-
 
 
 ## Como Utilizar
@@ -115,11 +111,5 @@ Descrição das funcionalidades do sistema:
 
 - Instruções.
 
-## Capturas de Ecrã
 
-Se desejar, pode adicionar capturas de ecrã ou imagens relevantes aqui.
-
-## Licença
-
-Este projeto é licenciado sob [SUA LICENÇA](URL_DA_LICENÇA).
 
