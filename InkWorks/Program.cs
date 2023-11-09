@@ -4,6 +4,9 @@ using InkWorks.Repositorio;
 using AspNetCoreHero.ToastNotification;
 using Microsoft.AspNetCore.Http;
 using InkWorks.Helper;
+using InkWorks.Migrations;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Net.Sockets;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -69,8 +72,7 @@ app.UseAuthorization();
 app.UseSession();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Publico}/{action=Index}/{id?}");
-
-
+name: "default",
+pattern: "{controller=Publico}/{action=Index}/{id?}");
 app.Run();
+
