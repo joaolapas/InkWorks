@@ -1,30 +1,32 @@
-﻿@model Cliente
+﻿@model Mensagem
 
-@{
-    ViewData["title"] = "Apagar Cliente";
-}
+<div class="container">
+    <h1>Eliminar Mensagem</h1>
 
-
-<div class="container d-flex justify-content-center align-items-center py-4">
-    <div class="bg-dark text-white p-4 rounded">
-        <h1 class="display-5 mb-4">Apagar Ficha de Cliente</h1>
-
-       <h3 class="text-danger">Tem a certeza que quer apagar a ficha do cliente</h3>
-        <h3 class="text-danger">@Model.Nome?</h3>
-
-       <p>Todos os dados serão eliminados permanentemente</p>
-
-        <form method="post" asp-controller="Clientes" asp-action="Eliminar">
-            <input asp-for="Nome" hidden />
-            <input asp-for="Morada" hidden />
-            <input asp-for="AnoNascimento" hidden />
-            <input asp-for="Telefone" hidden />
-            <input asp-for="Email" hidden />
-            <input asp-for="ClienteId" hidden />
-            <button type="submit" class="btn btn-danger">Remover</button>
-            <a class="btn btn-outline-light" asp-controller="Clientes" asp-action="Index">Voltar</a>
-        </form>
-       
-
+    <div class="card text-white mb-3 text-center ">
+        <div class="card-header">Confirmação</div>
+        <div class="card-body">
+            <h5 class="card-title">Tem a certeza que deseja eliminar esta mensagem?</h5>
+            <p>Mensagem:</p>
+            <h4 class="text-danger">@Model.MensagemTexto</h4>
+            <h2 class="card-text text-light">Esta ação é irreversível.</h2>
+        </div>
     </div>
+
+    <form asp-controller="Mensagens" asp-action="Eliminar" method="post">
+        @Html.HiddenFor(model => model.MensagemId)
+        @Html.HiddenFor(model => model.Nome)
+        @Html.HiddenFor(model => model.Morada)
+        @Html.HiddenFor(model => model.Telefone)
+        @Html.HiddenFor(model => model.Email)
+        @Html.HiddenFor(model => model.AnoNascimento)
+        @Html.HiddenFor(model => model.DataEnvio)
+        @Html.HiddenFor(model => model.MensagemTexto)
+        @Html.HiddenFor(model => model.ClienteId)
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-danger">Eliminar Mensagem</button>
+            <a class="btn btn-outline-light" asp-controller="Mensagens" asp-action="Detalhes" asp-route-id="@Model.MensagemId">Cancelar</a>
+        </div>
+    </form>
 </div>

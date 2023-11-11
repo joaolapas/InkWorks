@@ -60,6 +60,20 @@ namespace InkWorks.Controllers
             }
             return View(msg);
         }
+        [HttpGet]
+        public IActionResult Eliminar(int id)
+        {
+            var mensagem = _repositorio.ListarPorId(id);
+
+            if (mensagem == null)
+            {
+                _notification.Error("Mensagem não encontrada!");
+                return RedirectToAction("Index");
+            }
+
+            return View(mensagem);
+        }
+
         [HttpPost]
         public IActionResult Enviar(Mensagem msg)
         {
@@ -84,5 +98,23 @@ namespace InkWorks.Controllers
 
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        public IActionResult Eliminar(Mensagem mensagem)
+        {
+            var mensagemParaEliminar = _repositorio.ListarPorId(mensagem.MensagemId);
+
+            if (mensagemParaEliminar == null)
+            {
+                _notification.Error("Mensagem não encontrada!");
+                return RedirectToAction("Index");
+            }
+
+            _repositorio.Eliminar(mensagemParaEliminar);
+            _notification.Success("Mensagem eliminada com sucesso!");
+
+            return RedirectToAction("Index");
+        }
+
+
     }
 }
