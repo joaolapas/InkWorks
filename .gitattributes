@@ -1,3 +1,6 @@
+retirar o css da estatistica:
+*.css linguist-vendored
+
 ###############################################################################
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
