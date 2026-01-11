@@ -1,4 +1,4 @@
-retirar o css da estatistica:
+#retirar o css da estatistica:
 *.css linguist-vendored
 
 ###############################################################################
